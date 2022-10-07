@@ -40,9 +40,8 @@ def create_app(test_config=None):
     except OSError:
         pass
 
-    # A simple page that says hello
-    @app.route('/hello')
-    def hello():
-        return 'Hello, world!'
+    with app.app_context():
+        # Include routes
+        from . import views
 
     return app
