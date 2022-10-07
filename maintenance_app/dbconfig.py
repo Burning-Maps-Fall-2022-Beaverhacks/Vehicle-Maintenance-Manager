@@ -35,6 +35,7 @@ def create_tables(connection_obj):
 
     create_owned_vehicle_table = """CREATE TABLE owned_vehicle  ( 
                         owned_vehicle_id INT PRIMARY KEY,
+                        vin TEXT NOT NULL,  
                         vehicle_id INT NOT NULL,
                         owner_id INT NOT NULL, 
                         make CHAR(25) NOT NULL,
