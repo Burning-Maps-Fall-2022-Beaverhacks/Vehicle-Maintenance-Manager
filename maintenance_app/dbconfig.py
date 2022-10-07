@@ -14,6 +14,7 @@ def create_tables(connection_obj):
     cursor_obj.execute("DROP TABLE IF EXISTS owner;")
     cursor_obj.execute("DROP TABLE IF EXISTS owned_vehicle;")
     cursor_obj.execute("DROP TABLE IF EXISTS recall;")
+    cursor_obj.execute("DROP TABLE IF EXISTS service_master;")
 
     create_vehicle_table = """CREATE TABLE vehicle  ( 
                         vehicle_id INT PRIMARY KEY,
@@ -60,12 +61,25 @@ def create_tables(connection_obj):
                         recall_number TEXT,  
                         campaign_number TEXT); """
 
+    create_service_master_table = """CREATE TABLE service_master  ( 
+                    service_id INT PRIMARY KEY,
+                    vehicle_id INT NOT NULL, 
+                    service_name TEXT,
+                    service_description TEXT,
+                    service_date datetime, 
+                    severity TEXT, 
+                    due_mileage INT, 
+                    repair_cost REAL,  
+                    parts_needed TEXT); """
+
+
     create_table_queries = [create_vehicle_table, create_owner_table,
-                            create_owned_vehicle_table, create_recall_table]
+                            create_owned_vehicle_table, create_recall_table, 
+                            create_service_master_table]
 
     for create_statement in create_table_queries:
         cursor_obj.execute(create_statement)
 
-    print("Vehicle, owner, owned_vehicle, and recall tables are ready")
+    print("Vehicle, owner, owned_vehicle, recall, and service_master tables are ready")
 
     connection_obj.close()
