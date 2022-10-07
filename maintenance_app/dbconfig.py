@@ -35,11 +35,15 @@ def create_tables(connection_obj):
 
     create_owned_vehicle_table = """CREATE TABLE owned_vehicle  ( 
                         owned_vehicle_id INT PRIMARY KEY,
-                        vin TEXT NOT NULL,  
+                        vin TEXT,  
                         vehicle_id INT NOT NULL,
                         owner_id INT NOT NULL, 
                         make CHAR(25) NOT NULL,
                         model CHAR(25) NOT NULL, 
+                        manufacturer TEXT NOT NULL, 
+                        transmission TEXT, 
+                        engine TEXT, 
+                        trim TEXT, 
                         year INT NOT NULL, 
                         windshield_wiper TEXT, 
                         engine_oil TEXT, 

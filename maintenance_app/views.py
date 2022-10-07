@@ -56,5 +56,11 @@ def api_test():
     year = request_json['data']['year']
     engine = request_json['data']['engine']
     trim = request_json['data']['trim']
+
+
+    # send data to database
+    
+
+
     return f'VIN: {vin}, Make: {make}, Model: {model}, Manufacturer: {manufacturer},\
         Transmission: {transmission}, Year: {year}, Engine: {engine}, Trim: {trim}'
