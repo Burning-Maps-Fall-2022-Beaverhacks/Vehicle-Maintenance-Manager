@@ -2,7 +2,7 @@
 
 An application to make keeping track of vehicle maintenance easier.
 
-## Setup
+## Setting Up a Development Environment
 
 ### Virtual Environment
 
@@ -33,3 +33,15 @@ python3 pip install -r requirements.txt
 ```
 
 Once all the dependencies are installed, you are ready to start Flask and begin developing.
+
+### Launching the App (Development)
+
+While you are working, you can launch the Flask app in debug mode. Flask will reload each time you save changes to the project files, and helpful messages and debugging information will print to the terminal while in debug mode.
+
+```shell
+Flask --debug run
+```
+
+#### Database
+
+When you run Flask for the first time, or if you delete the database file, the init sequence will create an SQLite database named `database.sqlite` in the project directory. This database has no tables for now.

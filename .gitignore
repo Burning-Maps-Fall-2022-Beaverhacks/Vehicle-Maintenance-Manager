@@ -20,6 +20,8 @@ var/
 *.egg-info/
 .installed.cfg
 *.egg
+requirements.in
+database.sqlite
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
