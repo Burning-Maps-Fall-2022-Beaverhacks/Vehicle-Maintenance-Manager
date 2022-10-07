@@ -46,4 +46,4 @@ Flask --debug run
 
 #### Database
 
-When you run Flask for the first time, or if you delete the database file, the init sequence will create an SQLite database named `database.sqlite` in the project directory. This database has no tables for now.
+When you run Flask for the first time, or if you delete the database file, the init sequence will create an SQLite database named `database.sqlite` in the project directory. The tables for this database are definied in `dbconfig.py`.
