@@ -31,7 +31,7 @@ source venv/bin/activate
 Once you have activated the virtual environment, you can install all of the Python package dependencies in your environment using pip. You only need to do this when you first create your virtual environment, or whenever a new dependency is added to the project. To install these, simply invoke the following command:
 
 ```shell
-python3 pip install -r requirements.txt
+pip install -r requirements.txt
 ```
 
 Once all the dependencies are installed, you are ready to start Flask and begin developing.
