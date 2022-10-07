@@ -14,6 +14,8 @@ To begin, it's advisable to work within a virtual environment. To set up the vir
 python3 -m venv venv
 ```
 
+More about venv: <https://www.infoworld.com/article/3239675/virtualenv-and-venv-python-virtual-environments-explained.html>
+
 #### Activation
 
 This will create a new directory inside your project folder named `venv` containing the virtual environment.
