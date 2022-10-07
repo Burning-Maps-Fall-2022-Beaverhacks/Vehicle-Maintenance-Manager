@@ -4,7 +4,7 @@ Flask uses patterns to match the incoming request URL to the view that should ha
 """
 
 from flask import current_app as app
-import requests
+# import requests
 import json
 
 
@@ -59,7 +59,7 @@ def api_test():
 
 
     # send data to database
-    
+    # can we auto increment the PK in owned vehicles? yes, we can
 
 
     return f'VIN: {vin}, Make: {make}, Model: {model}, Manufacturer: {manufacturer},\

@@ -17,7 +17,7 @@ def create_tables(connection_obj):
     cursor_obj.execute("DROP TABLE IF EXISTS service_master;")
 
     create_vehicle_table = """CREATE TABLE vehicle  ( 
-                        vehicle_id INT PRIMARY KEY,
+                        vehicle_id INTEGER PRIMARY KEY AUTOINCREMENT,
                         make CHAR(25) NOT NULL,
                         model CHAR(25) NOT NULL, 
                         year INT NOT NULL, 
@@ -28,13 +28,13 @@ def create_tables(connection_obj):
                         tire_pressure INT); """
 
     create_owner_table = """CREATE TABLE owner  ( 
-                        owner_id INT PRIMARY KEY,
+                        owner_id INTEGER PRIMARY KEY AUTOINCREMENT,
                         first_name CHAR(25) NOT NULL,
                         last_name CHAR(25) NOT NULL, 
                         full_name CHAR(50) NOT NULL); """
 
     create_owned_vehicle_table = """CREATE TABLE owned_vehicle  ( 
-                        owned_vehicle_id INT PRIMARY KEY,
+                        owned_vehicle_id INTEGER PRIMARY KEY AUTOINCREMENT,
                         vin TEXT,  
                         vehicle_id INT NOT NULL,
                         owner_id INT NOT NULL, 
@@ -57,7 +57,7 @@ def create_tables(connection_obj):
                         last_maintenance_appointment datetime); """
 
     create_recall_table = """CREATE TABLE recall  ( 
-                        recall_id INT PRIMARY KEY,
+                        recall_id INTEGER PRIMARY KEY AUTOINCREMENT,
                         vehicle_id INT NOT NULL, 
                         description TEXT,
                         recommended_action TEXT, 
@@ -67,7 +67,7 @@ def create_tables(connection_obj):
                         campaign_number TEXT); """
 
     create_service_master_table = """CREATE TABLE service_master  ( 
-                    service_id INT PRIMARY KEY,
+                    service_id INTEGER PRIMARY KEY AUTOINCREMENT,
                     vehicle_id INT NOT NULL, 
                     service_name TEXT,
                     service_description TEXT,
