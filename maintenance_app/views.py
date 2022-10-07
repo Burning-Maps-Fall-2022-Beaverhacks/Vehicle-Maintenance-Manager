@@ -6,7 +6,7 @@ Flask uses patterns to match the incoming request URL to the view that should ha
 from flask import current_app as app
 # import requests
 import json
-
+import sqlite3
 
 # A simple page that says hello
 
@@ -58,8 +58,16 @@ def api_test():
     trim = request_json['data']['trim']
 
 
-    # send data to database
-    # can we auto increment the PK in owned vehicles? yes, we can
+    # # send data to database
+    # insert_data = (vin, 1, 1, make, model, manufacturer, transmission, engine, trim, year, "","", 100, "", "James", "McGill", "James McGill", 50000, '2022-06-01', '2022-06-01')
+
+    # # create connecdtion to db 
+    # connection_obj = sqlite3.connect('database.sqlite')
+    # cursor_obj = connection_obj.cursor() 
+
+    # cursor_obj.execute('INSERT INTO owned_vehicle VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', insert_data) 
+    # connection_obj.commit() 
+    
 
 
     return f'VIN: {vin}, Make: {make}, Model: {model}, Manufacturer: {manufacturer},\
