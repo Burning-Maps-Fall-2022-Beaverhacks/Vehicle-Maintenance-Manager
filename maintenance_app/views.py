@@ -48,6 +48,7 @@ def api_test():
             "transmission": "AUTOMATIC"
         }
     }
+    # Set variables to pass into the DB
     vin = '1GNALDEK9FZ108495'
     make = request_json['data']['make']
     model = request_json['data']['model']
@@ -57,16 +58,17 @@ def api_test():
     engine = request_json['data']['engine']
     trim = request_json['data']['trim']
 
-    insert_data = (None, vin, 1, 1, make, model, manufacturer, transmission, engine, trim, year,
-                   "", "", 100, "", "James", "McGill", "James McGill", 50000, '2022-06-01', '2022-06-01')
+    insert_data = (None, vin, 1, 1, make, model, manufacturer, transmission,
+                   engine, trim, year, "", "", 100, "", "James", "McGill",
+                   "James McGill", 50000, '2022-06-01', '2022-06-01')
 
     # create connecdtion to db
     connection_obj = sqlite3.connect('database.sqlite')
     cursor_obj = connection_obj.cursor()
 
     # send data to database
-    cursor_obj.execute(
-        'INSERT INTO owned_vehicle VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', insert_data)
+    cursor_obj.execute('INSERT INTO owned_vehicle VALUES \
+        (?, ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', insert_data)
     connection_obj.commit()
 
     return f'VIN: {vin}, Make: {make}, Model: {model}, Manufacturer: {manufacturer},\
@@ -74,19 +76,19 @@ def api_test():
 
 
 # @app.route('/api-get-maintenance')
-# def api_get_maintenance_test(): 
+# def api_get_maintenance_test():
 #     header = {
 #         "content-type":"application/json",
 #         "authorization":"Basic ODdiNTI2ZWQtN2FiMS00Y2NlLTkzMDYtMWQ2MTEwZDk5N2Fk",
 #         "partner-token":"0f8d6091f3554f949367b10f9c1fda55"
-#         }      
-    
+#         }
+
 #     maintenance_request = requests.get("http://api.carmd.com/v3.0/maint?year=2016&make=FORD&model=FUSION&mileage=47000", headers=request_header)
-#     maintenance_json = maintenance_request.json() 
-#     data = maintenance_json['data'] 
+#     maintenance_json = maintenance_request.json()
+#     data = maintenance_json['data']
 
 #     connection_obj = sqlite3.connect('database.sqlite')
 #     cursor_obj = connection_obj.cursor()
 
-#     for item in data: 
-#         insert_data = ()    
+#     for item in data:
+#         insert_data = ()
