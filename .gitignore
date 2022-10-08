@@ -22,6 +22,7 @@ var/
 *.egg
 requirements.in
 database.sqlite
+apiconfig.py
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
