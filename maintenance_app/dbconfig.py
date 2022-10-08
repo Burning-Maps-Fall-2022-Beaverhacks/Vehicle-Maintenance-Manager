@@ -66,25 +66,27 @@ def create_tables(connection_obj):
                         recall_number TEXT,  
                         campaign_number TEXT); """
 
-    create_service_master_table = """CREATE TABLE service_master  ( 
-                    service_id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    vehicle_id INT NOT NULL, 
-                    service_name TEXT,
-                    service_description TEXT,
-                    service_date datetime, 
-                    severity TEXT, 
+    create_maintenance_table = """CREATE TABLE maintenance  ( 
+                    maintenance_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    vehicle_id INT, 
+                    maintenance_description TEXT,
                     due_mileage INT, 
-                    repair_cost REAL,  
-                    parts_needed TEXT); """
+                    parts_needed TEXT, 
+                    parts_price REAL, 
+                    part_quantity INT, 
+                    repair_difficulty INT, 
+                    repair_hours REAL, 
+                    repair_total_cost REAL, 
+                    maintenance_date datetime); """
 
 
     create_table_queries = [create_vehicle_table, create_owner_table,
                             create_owned_vehicle_table, create_recall_table, 
-                            create_service_master_table]
+                            create_maintenance_table]
 
     for create_statement in create_table_queries:
         cursor_obj.execute(create_statement)
 
-    print("Vehicle, owner, owned_vehicle, recall, and service_master tables are ready")
+    print("Vehicle, owner, owned_vehicle, recall, and maintenance tables are ready")
 
     connection_obj.close()
