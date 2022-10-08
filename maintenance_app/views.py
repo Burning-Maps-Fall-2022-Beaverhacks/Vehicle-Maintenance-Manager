@@ -4,13 +4,12 @@ Flask uses patterns to match the incoming request URL to the view that should ha
 """
 
 from flask import current_app as app
-# import requests
+import requests
 import json
 import sqlite3
-# import apiconifg
+from . import apiconfig
 import database.api_response_tests
 import pprint
-# A simple page that says hello
 
 
 @app.route('/hello')
@@ -77,7 +76,7 @@ def api_test():
 @app.route('/api-get-maintenance')
 def api_get_maintenance_test():
 
-    # maintenance_request = requests.get("http://api.carmd.com/v3.0/maint?year=2016&make=FORD&model=FUSION&mileage=47000", headers=header)
+    # maintenance_request = requests.get("http://api.carmd.com/v3.0/maint?year=2021&make=TOYOTA&model=COROLLA&mileage=8000", headers=apiconfig.header)
     # maintenance_json = maintenance_request.json()
     
 
@@ -120,3 +119,26 @@ def api_get_maintenance_test():
     return f'parts_needed:{part_needed}'
 
 
+@app.route('/api-get-recall')
+def api_get_recall_test():
+    # recall_request = requests.get("http://api.carmd.com/v3.0/recall?year=2017&make=HONDA&model=ACCORD", headers=apiconfig.header)
+    # recall_json = recall_request.json()
+    
+
+    # create connection to database
+    connection_obj = sqlite3.connect('database.sqlite')
+    cursor_obj = connection_obj.cursor()
+
+
+    # iterate through JSON and send to table in database
+    
+    # for recall in recall_json['data']:
+    for recall in database.api_response_tests.recall_example_three['data']:
+        insert_data = (None, 1, recall['desc'], recall['corrective_action'], recall['consequence'], recall['recall_date'], recall['recall_number'], recall['campaign_number'])
+        cursor_obj.execute('INSERT INTO recall VALUES (?,?,?,?,?,?,?,?)', insert_data)
+        connection_obj.commit()
+
+        
+    connection_obj.close() 
+
+    return f'It worked'

@@ -58,7 +58,7 @@ def create_tables(connection_obj):
 
     create_recall_table = """CREATE TABLE recall  ( 
                         recall_id INTEGER PRIMARY KEY AUTOINCREMENT,
-                        vehicle_id INT NOT NULL, 
+                        vehicle_id INT, 
                         description TEXT,
                         recommended_action TEXT, 
                         consequence TEXT, 
