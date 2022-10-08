@@ -25,7 +25,7 @@ def create_tables(connection_obj):
                         windshield_wiper_rear_size TEXT, 
                         engine_oil_viscosity TEXT, 
                         engine_oil_capacity REAL, 
-                        tire_pressure INT); """
+                        vehicle_color TEXT); """
 
     create_owner_table = """CREATE TABLE owner  ( 
                         owner_id INTEGER PRIMARY KEY AUTOINCREMENT,
