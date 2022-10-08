@@ -4,9 +4,10 @@ Flask uses patterns to match the incoming request URL to the view that should ha
 """
 
 from flask import current_app as app
-# import requests
+import requests
 import json
 import sqlite3
+import apiconifg
 
 # A simple page that says hello
 
@@ -17,18 +18,15 @@ def hello():
 
 
 # API Testing
-header = {
-    "content-type": "application/json",
-    "authorization": "Basic NjA1NjRlNjEtY2Y4Mi00YjNlLTk3YmUtM2Y5M2VmZjcwNmEz",
-    "partner-token": "0ce7897ec7654f44bc40115fafef29c0"
-}
+header = apiconifg.header
 
 
 @app.route('/api-test')
 def api_test():
-    # vin_request = requests.get(
-    #     'http://api.carmd.com/v3.0/decode?vin=1GNALDEK9FZ108495', headers=header)
-    # request_json = vin_request.json()
+    #     vin_request = requests.get(
+    #         'http://api.carmd.com/v3.0/decode?vin=1GNALDEK9FZ108495', headers=header)
+    #     request_json = vin_request.json()
+
     request_json = {
         "message": {
             "code": 0,
@@ -68,7 +66,7 @@ def api_test():
 
     # send data to database
     cursor_obj.execute('INSERT INTO owned_vehicle VALUES \
-        (?, ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', insert_data)
+        (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', insert_data)
     connection_obj.commit()
 
     return f'VIN: {vin}, Make: {make}, Model: {model}, Manufacturer: {manufacturer},\
