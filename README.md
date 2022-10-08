@@ -46,4 +46,18 @@ Flask --debug run
 
 #### Database
 
-When you run Flask for the first time, or if you delete the database file, the init sequence will create an SQLite database named `database.sqlite` in the project directory. This database has no tables for now.
+When you run Flask for the first time, or if you delete the database file, the init sequence will create an SQLite database named `database.sqlite` in the project directory. The tables for this database are definied in `dbconfig.py`.
+
+#### API Configuration
+
+In your local instance, create a file called `apiconfig.py` in the project directory. Inside, insert the following:
+
+```shell
+header = {
+    "content-type": "application/json",
+    "authorization": "AUTH_TOKEN",
+    "partner-token": "PARTNER_TOKEN"
+}
+```
+
+Replace `"AUTH_TOKEN"` and `"PARTNER_TOKEN"` with your tokens from the CarMD API.
