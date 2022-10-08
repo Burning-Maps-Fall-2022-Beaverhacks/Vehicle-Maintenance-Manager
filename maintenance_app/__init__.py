@@ -28,6 +28,7 @@ def create_app(test_config=None):
             connection_obj = sqlite3.connect('database.sqlite')
             dbconfig.create_tables(connection_obj)
             print('Database formed')
+
         except Exception as error:
             return error
 
