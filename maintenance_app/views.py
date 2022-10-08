@@ -3,7 +3,7 @@ A view function is the code you write to respond to requests.
 Flask uses patterns to match the incoming request URL to the view that should handle it.
 """
 
-from flask import current_app as app
+from flask import current_app as app, request, render_template
 import requests
 import json
 import sqlite3
@@ -19,6 +19,13 @@ def hello():
 
 # API Testing
 # header = apiconifg.header
+@app.route('/')
+def index():
+    return render_template(
+        'index.html',
+        title="Car Maintenance Tracker",
+        description="A WebApp to track the service your vehicles need."
+    )
 
 
 @app.route('/api-test')
@@ -78,43 +85,41 @@ def api_get_maintenance_test():
 
     # maintenance_request = requests.get("http://api.carmd.com/v3.0/maint?year=2021&make=TOYOTA&model=COROLLA&mileage=8000", headers=apiconfig.header)
     # maintenance_json = maintenance_request.json()
-    
 
     # create connection to database
     connection_obj = sqlite3.connect('database.sqlite')
     cursor_obj = connection_obj.cursor()
 
-
-
     # iterate through JSON and send to table in database
 
     for maintenance_item in database.api_response_tests.maintenance_example_one['data']:
-        # get part data 
+        # get part data
         # pprint.pprint(maintenance_item)
-        if maintenance_item['parts'] == None: 
+        if maintenance_item['parts'] == None:
             part_needed = None
-            part_price = None 
+            part_price = None
             part_quantity = None
         else:
             part_needed = maintenance_item['parts'][0]['desc']
             part_price = maintenance_item['parts'][0]['price']
             part_quantity = maintenance_item['parts'][0]['qty']
-    
-        if maintenance_item['repair'] == None: 
+
+        if maintenance_item['repair'] == None:
             repair_difficulty = None
-            repair_hours = None 
-            repair_total_cost = None 
-        else: 
+            repair_hours = None
+            repair_total_cost = None
+        else:
             repair_difficulty = maintenance_item['repair']['repair_difficulty']
             repair_hours = maintenance_item['repair']['repair_hours']
             repair_total_cost = maintenance_item['repair']['total_cost']
 
-        insert_data = (None, None, maintenance_item['desc'], maintenance_item['due_mileage'], part_needed, part_price, part_quantity, repair_difficulty, repair_hours, repair_total_cost, None)
-        cursor_obj.execute('INSERT INTO maintenance VALUES (?,?,?,?,?,?,?,?,?,?,?)', insert_data)
+        insert_data = (None, None, maintenance_item['desc'], maintenance_item['due_mileage'], part_needed,
+                       part_price, part_quantity, repair_difficulty, repair_hours, repair_total_cost, None)
+        cursor_obj.execute(
+            'INSERT INTO maintenance VALUES (?,?,?,?,?,?,?,?,?,?,?)', insert_data)
         connection_obj.commit()
 
-        
-    connection_obj.close() 
+    connection_obj.close()
 
     return f'parts_needed:{part_needed}'
 
@@ -123,22 +128,21 @@ def api_get_maintenance_test():
 def api_get_recall_test():
     # recall_request = requests.get("http://api.carmd.com/v3.0/recall?year=2017&make=HONDA&model=ACCORD", headers=apiconfig.header)
     # recall_json = recall_request.json()
-    
 
     # create connection to database
     connection_obj = sqlite3.connect('database.sqlite')
     cursor_obj = connection_obj.cursor()
 
-
     # iterate through JSON and send to table in database
-    
+
     # for recall in recall_json['data']:
     for recall in database.api_response_tests.recall_example_three['data']:
-        insert_data = (None, 1, recall['desc'], recall['corrective_action'], recall['consequence'], recall['recall_date'], recall['recall_number'], recall['campaign_number'])
-        cursor_obj.execute('INSERT INTO recall VALUES (?,?,?,?,?,?,?,?)', insert_data)
+        insert_data = (None, 1, recall['desc'], recall['corrective_action'], recall['consequence'],
+                       recall['recall_date'], recall['recall_number'], recall['campaign_number'])
+        cursor_obj.execute(
+            'INSERT INTO recall VALUES (?,?,?,?,?,?,?,?)', insert_data)
         connection_obj.commit()
 
-        
-    connection_obj.close() 
+    connection_obj.close()
 
     return f'It worked'
