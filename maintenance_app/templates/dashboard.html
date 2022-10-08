@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <title>Maintenance Tracker - Dashboard</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-secondary navbar-expand-lg bg-light">
+            <div class="container-fluid">
+                <a href="index.html" class="navbar-brand navbar-links">APP NAME</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mb-2 mb-sm-0 p-2">
+                        <li class="nav-item">
+                            <a href="" class="nav-link">Demo</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="signup.html" class="nav-link">Sign Up</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="login.html" class="nav-link">Log In</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="col-lg-8 mx-auto p-4 py-md-5">
+        <header class="d-flex align-items-center pb-3 mb-5 border-bottom">
+            <h1>Your Vehicles</h1>
+        </header>
+
+        <main>
+            <table class="table table-striped table-hover table-bordered ">
+                <thead>
+                    <tr>
+                        <th scope="col">Year</th>
+                        <th scope="col">Make</th>
+                        <th scope="col">Model</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2022</td>
+                        <td>Kia</td>
+                        <td>Sorento</td>
+                        <td><a href="view-vehicle.html" type="button" class="btn btn-primary position-relative mx-auto">
+                                View
+                                <span
+                                    class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                    3
+                                    <span class="visually-hidden">Upcoming Service</span>
+                                </span>
+                            </a></td>
+                    </tr>
+                    <tr>
+                        <td>1992</td>
+                        <td>Honda</td>
+                        <td>Civic</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>2018</td>
+                        <td>Nissan</td>
+                        <td>Altima</td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="d-grid col-6 pt-4 mx-auto">
+                <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">Add
+                    Vehicle</button>
+            </div>
+
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Add Vehicle</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <section class="form-info-sec">
+                                <p class="my-0">Please Enter Your Vehicle Information</p>
+                                <form method="POST"></form>
+                                <div class="form-group">
+                                    <label for="year"></label>
+                                    <input type="year" class="form-control" id="year" name="year" placeholder="Year" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="make"></label>
+                                    <input type="make" class="form-control" id="make" name="make" placeholder="Make" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="model"></label>
+                                    <input type="model" class="form-control" id="model" name="model"
+                                        placeholder="Model" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="mileage"></label>
+                                    <input type="mileage" class="form-control" id="mileage" name="mileage"
+                                        placeholder="Mileage" />
+                                </div>
+                                <br />
+                                </form>
+                            </section>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Add Vehicle</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="pt-5 my-5 text-muted border-top">
+            Created for Beaverhacks Fall 2022
+        </footer>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>
