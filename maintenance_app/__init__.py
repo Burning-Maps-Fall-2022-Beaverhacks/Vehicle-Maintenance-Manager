@@ -23,7 +23,7 @@ def create_app(test_config=None):
         app.config.from_mapping(test_config)
 
     # Create app database if it does not exist already
-    if not os.path.exists('database1.sqlite'):
+    if not os.path.exists('database.sqlite'):
         try:
             connection_obj = sqlite3.connect('database.sqlite')
             dbconfig.create_tables(connection_obj)
