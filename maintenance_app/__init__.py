@@ -3,16 +3,12 @@ Contains initialization settings for the app.
 """
 import os
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
 import sqlite3
+from . import dbconfig
 import config
 
 
-# Globally accessible libraries
-db = SQLAlchemy()
-
 # Create App
-
 
 def create_app(test_config=None):
 
@@ -27,10 +23,12 @@ def create_app(test_config=None):
         app.config.from_mapping(test_config)
 
     # Create app database if it does not exist already
-    if not os.path.exists('databse.db'):
+    if not os.path.exists('database.sqlite'):
         try:
-            conn = sqlite3.connect('database.sqlite')
+            connection_obj = sqlite3.connect('database.sqlite')
+            dbconfig.create_tables(connection_obj)
             print('Database formed')
+
         except Exception as error:
             return error
 
