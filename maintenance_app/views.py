@@ -75,13 +75,8 @@ def api_test():
 
 # @app.route('/api-get-maintenance')
 # def api_get_maintenance_test():
-#     header = {
-#         "content-type":"application/json",
-#         "authorization":"Basic ODdiNTI2ZWQtN2FiMS00Y2NlLTkzMDYtMWQ2MTEwZDk5N2Fk",
-#         "partner-token":"0f8d6091f3554f949367b10f9c1fda55"
-#         }
 
-#     maintenance_request = requests.get("http://api.carmd.com/v3.0/maint?year=2016&make=FORD&model=FUSION&mileage=47000", headers=request_header)
+#     maintenance_request = requests.get("http://api.carmd.com/v3.0/maint?year=2016&make=FORD&model=FUSION&mileage=47000", headers=header)
 #     maintenance_json = maintenance_request.json()
 #     data = maintenance_json['data']
 
