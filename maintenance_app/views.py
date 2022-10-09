@@ -66,6 +66,23 @@ def view():
     print("Maintenance list: ", maintenance,
           "\n Owned Vehicle ID: ", owned_vehicle_id)
 
+
+    # Completed service list of tuples
+    #     complete_status = 'Complete'
+    # owned_vehicle_id = 1
+    # maintenance = cursor_obj.execute(
+    #     'SELECT maintenance_id, maintenance_description, repair_difficulty, due_mileage, status FROM maintenance WHERE owned_vehicle_id = ? AND status = ?;', (owned_vehicle_id, complete_status)).fetchmany(5)
+    # col_names = ["maintenance_id", "service", "difficulty", "mileage", "status"]
+    # maintenance_list = []
+    # for row in maintenance:
+    #     if row[-1] != 'Complete': 
+    #         maintenance_dict = {}
+    #         for i, col in enumerate(col_names):
+    #             maintenance_dict[col] = row[i]
+    #         maintenance_list.append(maintenance_dict)
+    # print("Maintenance list: ", maintenance) 
+
+
     # recall info
     recall = cursor_obj.execute(
         'SELECT recall_number, description, recommended_action, consequence, recall_date FROM recall WHERE vehicle_id = ? ORDER BY recall_date DESC;', (vehicle_id,)).fetchmany(5)
