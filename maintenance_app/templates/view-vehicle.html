@@ -3,7 +3,7 @@
 {% block content %}
 <header class="align-items-center pb-3 mb-5 border-bottom">
     <img src="../static/images/kia-sorento.png" class="mx-auto img-fluid d-block" alt="..." />
-    <h1>2022 Kia Sorento - Vehicle: {{ owned_vehicle_id }}</h1>
+    <h1>{{ year }} {{ make }} {{ model }}</h1>
 </header>
 
 <main>
@@ -63,7 +63,7 @@
                 <div id="collapseHeader" class="accordion-collapse collapse show" aria-labelledby="headingOne"
                     data-bs-parent="#accordionExample">
                     <div class="accordion-body">
-                        <strong> Date: </strong> {{recall.date}} <br />
+                        <strong>Date: </strong> {{recall.date}} <br />
                         <strong>Description:</strong> {{recall.description}}<br />
                         <strong>Required:</strong> {{recall.action}} <br />
                         <strong>Consequence:</strong> {{recall.consequence}} <br />
