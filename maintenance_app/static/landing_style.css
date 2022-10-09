@@ -52,3 +52,15 @@ footer {
 .header-text {
   color: #fff;
 }
+
+.hero-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+
+.hero-h2 {
+  font-size: x-large;
+}
