@@ -36,8 +36,13 @@ def view():
     has_api_been_called = cursor_obj.execute('SELECT api_call FROM owned_vehicle WHERE owned_vehicle_id = ?', (owned_vehicle_id,)).fetchone()[0]
     if has_api_been_called != 1: 
         # make api call for maintenance and recall
-        api_get_maintenance_test()
-        api_get_recall_test() 
+        car_info = cursor_obj.execute('SELECT year, make, model, mileage FROM owned_vehicle WHERE owned_vehicle_id = ?;', (owned_vehicle_id,)).fetchone()
+        year = car_info[0]
+        make = car_info[1]
+        model = car_info[2]
+        miles_driven = car_info[3]
+        api_get_maintenance_test(year, make, model, miles_driven)
+        api_get_recall_test(year, make, model) 
         cursor_obj.execute('UPDATE owned_vehicle SET api_call = 1 WHERE owned_vehicle_id =?', (owned_vehicle_id,))
         connection_obj.commit() 
 
@@ -158,11 +163,14 @@ def api_test():
         Transmission: {transmission}, Year: {year}, Engine: {engine}, Trim: {trim}'
 
 
-@ app.route('/api-get-maintenance')
-def api_get_maintenance_test():
+# @ app.route('/api-get-maintenance')
+def api_get_maintenance_test(year, make, model, miles_driven):
 
-    # maintenance_request = requests.get("http://api.carmd.com/v3.0/maint?year=2021&make=TOYOTA&model=COROLLA&mileage=8000", headers=apiconfig.header)
-    # maintenance_json = maintenance_request.json()
+    make = make.upper() 
+    model = model.upper() 
+
+    maintenance_request = requests.get(f"http://api.carmd.com/v3.0/maint?year={year}&make={make}&model={model}&mileage={miles_driven}", headers=apiconfig.header)
+    maintenance_json = maintenance_request.json()
 
     # create connection to database
     connection_obj = sqlite3.connect('database.sqlite')
@@ -170,7 +178,8 @@ def api_get_maintenance_test():
 
     # iterate through JSON and send to table in database
 
-    for maintenance_item in database.api_response_tests.maintenance_example_one['data']:
+    # for maintenance_item in database.api_response_tests.maintenance_example_one['data']:
+    for maintenance_item in maintenance_json['data']: 
         # get part data
         # pprint.pprint(maintenance_item)
         if maintenance_item['parts'] == None:
@@ -193,28 +202,28 @@ def api_get_maintenance_test():
 
         insert_data = (None, None, maintenance_item['desc'], maintenance_item['due_mileage'], part_needed,
                        part_price, part_quantity, repair_difficulty, repair_hours, repair_total_cost, None)
+        print(insert_data)
         cursor_obj.execute(
             'INSERT INTO maintenance VALUES (?,?,?,?,?,?,?,?,?,?,?)', insert_data)
         connection_obj.commit()
 
     connection_obj.close()
 
-    return f'parts_needed:{part_needed}'
 
-
-@ app.route('/api-get-recall')
-def api_get_recall_test():
-    # recall_request = requests.get("http://api.carmd.com/v3.0/recall?year=2017&make=HONDA&model=ACCORD", headers=apiconfig.header)
-    # recall_json = recall_request.json()
+# @ app.route('/api-get-recall')
+def api_get_recall_test(year, make, model):
+    make = make.upper() 
+    model = model.upper() 
+    recall_request = requests.get(f"http://api.carmd.com/v3.0/recall?year={year}&make={make}&model={model}", headers=apiconfig.header)
+    recall_json = recall_request.json()
 
     # create connection to database
     connection_obj = sqlite3.connect('database.sqlite')
     cursor_obj = connection_obj.cursor()
 
     # iterate through JSON and send to table in database
-
-    # for recall in recall_json['data']:
-    for recall in database.api_response_tests.recall_example_three['data']:
+    for recall in recall_json['data']:
+    # for recall in database.api_response_tests.recall_example_three['data']:
         insert_data = (None, 1, recall['desc'], recall['corrective_action'], recall['consequence'],
                        recall['recall_date'], recall['recall_number'], recall['campaign_number'])
         cursor_obj.execute(
