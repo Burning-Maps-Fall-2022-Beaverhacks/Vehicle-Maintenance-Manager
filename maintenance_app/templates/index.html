@@ -1,236 +1,284 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="../static/landing_style.css" type="text/css" />
+    <title>Car Maintenance Manager</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous" />
-  <link rel="stylesheet" href="../static/landing_style.css" type="text/css" />
-  <title>Car Maintenance Manager</title>
-</head>
-
-<body>
-  <header>
-    <nav class="navbar navbar-secondary navbar-expand-lg bg-light">
-      <div class="container-fluid">
-        <a href="index.html" class="navbar-brand navbar-links">CarDoc</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mb-2 mb-sm-0 p-2">
-            <li class="nav-item">
-              <a href="" class="nav-link">Demo</a>
-            </li>
-            <li class="nav-item">
-              <a href="signup.html" class="nav-link">Sign Up</a>
-            </li>
-            <li class="nav-item">
-              <a href="login.html" class="nav-link">Log In</a>
-            </li>
-          </ul>
+  <body>
+    <header>
+      <nav class="navbar navbar-secondary navbar-expand-lg bg-light">
+        <div class="container-fluid">
+          <a href="index.html" class="navbar-brand navbar-links">CarDoc</a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mb-2 mb-sm-0 p-2">
+              <li class="nav-item">
+                <a href="" class="nav-link">Demo</a>
+              </li>
+              <li class="nav-item">
+                <a href="signup.html" class="nav-link">Sign Up</a>
+              </li>
+              <li class="nav-item">
+                <a href="login.html" class="nav-link">Log In</a>
+              </li>
+            </ul>
+          </div>
         </div>
-      </div>
-    </nav>
-  </header>
-  <section id="hero" class="text-center">
-    <div class="hero-container">
-      <div class="">
-        <div class="header-text">
-          <h1 class="fs-1">
-            Track, Manage, and <br />
-            Own your Vehicle Maintenance.
-          </h1>
-          <div class="col-lg-6 mx-auto">
-            <h2 class="mb-4 hero-h2">
-              Staying on top of your vehicle maintenace can help you save
-              money and avoid costly and unecessary repairs in the future
-            </h2>
-            <div class="d-grid gap-2 d-sm-flex justify-content-center">
-              <button type="primary" class="btn btn-primary px-5">
-                Sign Up
-              </button>
-              <button type="button" class="btn btn-secondary px-5">
-                LOG IN
-              </button>
+      </nav>
+    </header>
+    <section id="hero" class="text-center">
+      <div class="hero-container">
+        <div class="">
+          <div class="header-text">
+            <h1 class="fs-1">
+              Track, Manage, and <br />
+              Own your Vehicle Maintenance.
+            </h1>
+            <div class="col-lg-6 mx-auto">
+              <h2 class="mb-4 hero-h2">
+                Staying on top of your vehicle maintenace can help you save
+                money and avoid costly and unecessary repairs in the future
+              </h2>
+              <div class="d-grid gap-2 d-sm-flex justify-content-center">
+                <button type="primary" class="btn btn-primary px-5">
+                  Sign Up
+                </button>
+                <button type="button" class="btn btn-secondary px-5">
+                  LOG IN
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="bg-light">
-    <article>
-      <div class="container-fluid text-center">
-        <div class="row">
-          <div class="col-5 pr-0 pt-5">
-            <img class="img-fluid" src="../static/images/check_engine.png" alt="check-engine icon" />
-          </div>
-          <div class="col-7 d-flex align-items-center justify-content-center">
-            <div>
-              <h2 class="fs-1 text-secondary mb-5">MASTERING MAINTENANCE</h2>
-              <h3 class="fs-3 fw-light fst-italic">
-                Preventative maintenance today keeps the check engine light
-                away! With CarDoc's dynamic maintenance mananger, you can view
-                new vehicle maintenance items as they becomes due when your
-                car's mileage increases. You will also gain access to your
-                vehicle's maintenance history to view all of the past services
-                you have completed!
-              </h3>
+    <section class="bg-light">
+      <article>
+        <div class="container-fluid text-center">
+          <div class="row">
+            <div class="col-5 pr-0 pt-5">
+              <img
+                class="img-fluid"
+                src="../static/images/check_engine.png"
+                alt="check-engine icon"
+              />
+            </div>
+            <div class="col-7 d-flex align-items-center justify-content-center">
+              <div>
+                <h2 class="fs-1 text-secondary mb-5">MASTERING MAINTENANCE</h2>
+                <h3 class="fs-3 fw-light fst-italic">
+                  Preventative maintenance today keeps the check engine light
+                  away! With CarDoc's dynamic maintenance mananger, you can view
+                  new vehicle maintenance items as they becomes due when your
+                  car's mileage increases. You will also gain access to your
+                  vehicle's maintenance history to view all of the past services
+                  you have completed!
+                </h3>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </article>
-    <article>
-      <div class="container-fluid text-center">
-        <div class="row">
-          <div class="col-7 d-flex align-items-center justify-content-center">
-            <div>
-              <h2 class="fs-1 text-secondary mb-5">ACCESSIBLE ANYWHERE.</h2>
-              <h3 class="fs-3 fw-light fst-italic">
-                CarDoc is a web-based tool which gives you access to your
-                vehicle's profile at the click of a button! Is your mechanica
-                asking when the last time you had your transmission fluid
-                changed? Just sign into your profile from the shop and show
-                them your car's comprehensive medical records!
-              </h3>
+      </article>
+      <article>
+        <div class="container-fluid text-center">
+          <div class="row">
+            <div class="col-7 d-flex align-items-center justify-content-center">
+              <div>
+                <h2 class="fs-1 text-secondary mb-5">ACCESSIBLE ANYWHERE.</h2>
+                <h3 class="fs-3 fw-light fst-italic">
+                  CarDoc is a web-based tool which gives you access to your
+                  vehicle's profile at the click of a button! Is your mechanica
+                  asking when the last time you had your transmission fluid
+                  changed? Just sign into your profile from the shop and show
+                  them your car's comprehensive medical records!
+                </h3>
+              </div>
             </div>
-          </div>
-          <div class="col-5 pr-0 pt-5">
-            <img class="img-fluid" src="../static/images/mobile-app.png" alt="check-engine icon" />
-          </div>
-        </div>
-      </div>
-    </article>
-    <article>
-      <div class="container-fluid text-center">
-        <div class="row">
-          <div class="col-5 pr-0 pt-5">
-            <img class="img-fluid" src="../static/images/service.png" alt="check-engine icon" />
-          </div>
-          <div class="col-7 d-flex align-items-center justify-content-center">
-            <div>
-              <h2 class="fs-1 text-secondary mb-5">WRANGLING RECALLS</h2>
-              <h3 class="fs-3 fw-light fst-italic">
-                Keeping track of important factory reacalls can be a hassle!
-                Thankfully, CarDoc can do all of this for you! Once you create
-                your vehicle profile, CarDoc will automatically display any
-                outstanding reacalls for that vehicle so you can quickly see a
-                description, corrective action, and consequence of each
-                recall.
-              </h3>
+            <div class="col-5 pr-0 pt-5">
+              <img
+                class="img-fluid"
+                src="../static/images/mobile-app.png"
+                alt="check-engine icon"
+              />
             </div>
           </div>
         </div>
-      </div>
-    </article>
-  </section>
-  <section>
-    <div class="d-flex justify-content-center">
-      <h2 class="display-3 my-5 pt-5">WHO WE ARE</h2>
-    </div>
-    <article class="d-flex flex-column">
-      <div class="d-flex justify-content-around">
-        <div class="creator-profile pl-5">
-          <div class="d-flex justify-content-center">
-            <img class="img-thumbnail rounded-circle" src="../static/images/Alex_Bamb.JPG" alt="Creator #1 image"
-              width="250" height="250" />
-          </div>
-          <div class="d-flex justify-content-center">
-            <h3 class="fs-1 text-dark mb-3">Alex Hollinghead</h3>
-          </div>
-          <div class="d-flex justify-content-center">
-            <p class="fs-3 fw-light fst-italic text-center">
-              Alex Hollinghead is a first year postbacc student at OSU from Philadelphia, PA. His focus in this project
-              was developing the Flask components.
-            </p>
-          </div>
-        </div>
-        <div class="creator-profile pr-5">
-          <div class="d-flex justify-content-center">
-            <img class="img-thumbnail rounded-circle" src="../static/images/Eric_House.PNG" alt="Creator #1 image"
-              width="250" height="250" />
-          </div>
-          <div class="d-flex justify-content-center">
-            <h3 class="fs-1 text-dark mb-3">Creator #2</h3>
-          </div>
-          <div class="d-flex justify-content-center">
-            <p class="fs-3 fw-light fst-italic text-center">
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-              Maiores obcaecati qui ipsam dignissimos nesciunt doloremque.
-            </p>
+      </article>
+      <article>
+        <div class="container-fluid text-center">
+          <div class="row">
+            <div class="col-5 pr-0 pt-5">
+              <img
+                class="img-fluid"
+                src="../static/images/service.png"
+                alt="check-engine icon"
+              />
+            </div>
+            <div class="col-7 d-flex align-items-center justify-content-center">
+              <div>
+                <h2 class="fs-1 text-secondary mb-5">WRANGLING RECALLS</h2>
+                <h3 class="fs-3 fw-light fst-italic">
+                  Keeping track of important factory reacalls can be a hassle!
+                  Thankfully, CarDoc can do all of this for you! Once you create
+                  your vehicle profile, CarDoc will automatically display any
+                  outstanding reacalls for that vehicle so you can quickly see a
+                  description, corrective action, and consequence of each
+                  recall.
+                </h3>
+              </div>
+            </div>
           </div>
         </div>
+      </article>
+    </section>
+    <section>
+      <div class="d-flex justify-content-center">
+        <h2 class="display-3 my-5 pt-5">WHO WE ARE</h2>
       </div>
-      <div class="d-flex justify-content-around">
-        <div class="creator-profile pl-5">
-          <div class="d-flex justify-content-center">
-            <img class="img-thumbnail rounded-circle" src="../static/images/manny.jpg" alt="Creator #1 image"
-              width="250" height="250" />
+      <article class="d-flex flex-column">
+        <div class="d-flex justify-content-around">
+          <div class="creator-profile pl-5">
+            <div class="d-flex justify-content-center">
+              <img
+                class="img-thumbnail rounded-circle"
+                src="../static/images/Alex_Bamb.JPG"
+                alt="Creator #1 image"
+                width="250"
+                height="250"
+              />
+            </div>
+            <div class="d-flex justify-content-center">
+              <h3 class="fs-1 text-dark mb-3">Alex Hollinghead</h3>
+            </div>
+            <div class="d-flex justify-content-center">
+              <p class="fs-3 fw-light fst-italic text-center">
+                Alex Hollinghead is a first year postbacc student at OSU from
+                Philadelphia, PA. His focus in this project was developing the
+                Flask components.
+              </p>
+            </div>
           </div>
-          <div class="d-flex justify-content-center">
-            <h3 class="fs-1 text-dark mb-3">Creator #3</h3>
-          </div>
-          <div class="d-flex justify-content-center">
-            <p class="fs-3 fw-light fst-italic text-center">
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-              Maiores obcaecati qui ipsam dignissimos nesciunt doloremque.
-            </p>
+          <div class="creator-profile pr-5">
+            <div class="d-flex justify-content-center">
+              <img
+                class="img-thumbnail rounded-circle"
+                src="../static/images/Eric_House.PNG"
+                alt="Creator #1 image"
+                width="250"
+                height="250"
+              />
+            </div>
+            <div class="d-flex justify-content-center">
+              <h3 class="fs-1 text-dark mb-3">Creator #2</h3>
+            </div>
+            <div class="d-flex justify-content-center">
+              <p class="fs-3 fw-light fst-italic text-center">
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                Maiores obcaecati qui ipsam dignissimos nesciunt doloremque.
+              </p>
+            </div>
           </div>
         </div>
-        <div class="creator-profile pr-5">
-          <div class="d-flex justify-content-center">
-            <img class="img-thumbnail rounded-circle" src="../static/images/headshot_1.jpg" alt="Creator #1 image"
-              width="250" height="250" />
+        <div class="d-flex justify-content-around">
+          <div class="creator-profile pl-5">
+            <div class="d-flex justify-content-center">
+              <img
+                class="img-thumbnail rounded-circle"
+                src="../static/images/manny.jpg"
+                alt="Creator #1 image"
+                width="250"
+                height="250"
+              />
+            </div>
+            <div class="d-flex justify-content-center">
+              <h3 class="fs-1 text-dark mb-3">Manny Espinoza</h3>
+            </div>
+            <div class="d-flex justify-content-center">
+              <p class="fs-3 fw-light fst-italic text-center">
+                Manny Espinoza is a first year postbacc student at OSU.
+                Originally from the San Francisco Bay Area, Manny's focus in
+                this project was building the front end.
+              </p>
+            </div>
           </div>
-          <div class="d-flex justify-content-center">
-            <h3 class="fs-1 text-dark mb-3">Creator #4</h3>
-          </div>
-          <div class="d-flex justify-content-center">
-            <p class="fs-3 fw-light fst-italic text-center">
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-              Maiores obcaecati qui ipsam dignissimos nesciunt doloremque.
-            </p>
+          <div class="creator-profile pr-5">
+            <div class="d-flex justify-content-center">
+              <img
+                class="img-thumbnail rounded-circle"
+                src="../static/images/headshot_1.jpg"
+                alt="Creator #1 image"
+                width="250"
+                height="250"
+              />
+            </div>
+            <div class="d-flex justify-content-center">
+              <h3 class="fs-1 text-dark mb-3">Creator #4</h3>
+            </div>
+            <div class="d-flex justify-content-center">
+              <p class="fs-3 fw-light fst-italic text-center">
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                Maiores obcaecati qui ipsam dignissimos nesciunt doloremque.
+              </p>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="final-btn-container">
-        <button class="btn btn-primary final-btn py-2">Sign Up Now!</button>
-      </div>
-    </article>
-  </section>
-  <footer class="bg-light">
-    <p>
-      Car photo by
-      <a class="text-muted" href="https://unsplash.com/@robinvetutm">Robin Vet
-      </a>
-      on
-      <a href="https://unsplash.com/">Unsplash</a>
-    </p>
-    <p>
-      Check Engine icon and Mobile App icon by
-      <a class="text-muted" href="https://www.flaticon.com/authors/monkik">Monkik
-      </a>
-      on
-      <a href=" www.flaticon.com">Flaticon</a>
-    </p>
-    <p>
-      Service icon by
-      <a class="text-muted" href="https://www.flaticon.com/authors/creatype">Creatype
-      </a>
-      on
-      <a href=" www.flaticon.com">Flaticon</a>
-    </p>
-  </footer>
+        <div class="final-btn-container">
+          <button class="btn btn-primary final-btn py-2">Sign Up Now!</button>
+        </div>
+      </article>
+    </section>
+    <footer class="bg-light">
+      <p>
+        Car photo by
+        <a class="text-muted" href="https://unsplash.com/@robinvetutm"
+          >Robin Vet
+        </a>
+        on
+        <a href="https://unsplash.com/">Unsplash</a>
+      </p>
+      <p>
+        Check Engine icon and Mobile App icon by
+        <a class="text-muted" href="https://www.flaticon.com/authors/monkik"
+          >Monkik
+        </a>
+        on
+        <a href=" www.flaticon.com">Flaticon</a>
+      </p>
+      <p>
+        Service icon by
+        <a class="text-muted" href="https://www.flaticon.com/authors/creatype"
+          >Creatype
+        </a>
+        on
+        <a href=" www.flaticon.com">Flaticon</a>
+      </p>
+    </footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
-    crossorigin="anonymous"></script>
-</body>
-
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+      crossorigin="anonymous"
+    ></script>
+  </body>
 </html>
