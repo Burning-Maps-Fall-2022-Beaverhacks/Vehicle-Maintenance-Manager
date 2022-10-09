@@ -12,11 +12,6 @@ import database.api_response_tests
 import pprint
 
 
-@app.route('/hello')
-def hello():
-    return '<h1>Hello, world!</h1>'
-
-
 # API Testing
 # header = apiconifg.header
 @app.route('/')
@@ -26,6 +21,10 @@ def index():
         title="Car Maintenance Tracker",
         description="A WebApp to track the service your vehicles need."
     )
+
+
+@app.route('view')
+def view():
 
 
 @app.route('/api-test')
