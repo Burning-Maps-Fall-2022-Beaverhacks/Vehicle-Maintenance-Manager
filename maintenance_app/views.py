@@ -52,15 +52,17 @@ def view():
         connection_obj.commit()
 
     # maintenance info
+    complete_status = 'Complete'
     maintenance = cursor_obj.execute(
-        'SELECT maintenance_description, repair_difficulty, due_mileage FROM maintenance WHERE owned_vehicle_id = ?;', (owned_vehicle_id,)).fetchmany(5)
-    col_names = ["service", "difficulty", "mileage"]
+        'SELECT maintenance_id, maintenance_description, repair_difficulty, due_mileage, status FROM maintenance WHERE owned_vehicle_id = ? AND status != ?;', (owned_vehicle_id, complete_status)).fetchmany(6)
+    col_names = ["maintenance_id", "service", "difficulty", "mileage", "status"]
     maintenance_list = []
     for row in maintenance:
-        maintenance_dict = {}
-        for i, col in enumerate(col_names):
-            maintenance_dict[col] = row[i]
-        maintenance_list.append(maintenance_dict)
+        if row[-1] != 'Complete': 
+            maintenance_dict = {}
+            for i, col in enumerate(col_names):
+                maintenance_dict[col] = row[i]
+            maintenance_list.append(maintenance_dict)
     print("Maintenance list: ", maintenance,
           "\n Owned Vehicle ID: ", owned_vehicle_id)
 
@@ -86,10 +88,10 @@ def view():
         year=year,
         make=make,
         model=model,
-        maint=maintenance_list,
+        maint=maintenance_list[:5],
         recalls=recall_list,
         vehicle_id=vehicle_id,
-        owned_vehicle_id=owned_vehicle_id
+        owned_vehicle_id=owned_vehicle_id,
     )
 
 
@@ -97,10 +99,19 @@ def view():
 def service():
     vehicle_id = request.args.get("vehicle")
     owned_vehicle_id = request.args.get("owned_vehicle")
+    maintenance_id = request.args.get("maintenance_id")
     status = request.args.get("status")
+
     if status == "Complete":
-        pass
+        # return f"<h1>{status}</h1>"
         # Query db; change status to complete
+        connection_obj = sqlite3.connect('database.sqlite')
+        cursor_obj = connection_obj.cursor()    
+        cursor_obj.execute(
+            'UPDATE maintenance SET status = ? WHERE maintenance_id = ?;', (status, maintenance_id,)) 
+        connection_obj.commit()
+        connection_obj.close()
+
     return redirect(f'/view?vehicle_id={vehicle_id}&owned_vehicle={owned_vehicle_id}')
 
 

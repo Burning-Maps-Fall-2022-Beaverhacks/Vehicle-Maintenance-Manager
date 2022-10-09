@@ -1,6 +1,6 @@
 import sqlite3
 
-connection_obj = sqlite3.connect('database.sqlite')
+connection_obj = sqlite3.connect("Vehicle-Maintenance-Manager/database.sqlite")
 
 cursor_obj = connection_obj.cursor()
 
