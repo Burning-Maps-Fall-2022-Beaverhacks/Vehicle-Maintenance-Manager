@@ -23,8 +23,27 @@ def index():
     )
 
 
-@app.route('view')
+@app.route('/view')
 def view():
+
+    connection_obj = sqlite3.connect('database.sqlite')
+    cursor_obj = connection_obj.cursor()
+
+    
+    cols = cursor_obj.execute("PRAGMA table_info(maintenance)").fetchall()
+
+    # col_names = ["service", "difficulty", "cost", "mileage", "severity"]
+    col_names = ["service", "difficulty", "cost", "mileage"]
+    maintenance = cursor_obj.execute(f'SELECT maintenance_description, repair_difficulty, repair_total_cost, due_mileage FROM maintenance;').fetchmany(5) 
+    maintenance_dict = {}
+    for row in maintenance:
+        for i, col in enumerate(col_names): 
+            maintenance_dict[col] = row[i] 
+    
+    print(maintenance_dict)
+    
+    return "return"
+
 
 
 @app.route('/api-test')
