@@ -64,44 +64,6 @@ def view():
     )
 
 
-@app.route('/dashboard/<int:owner_id>')
-def dashboard(owner_id):
-
-    connection_obj = sqlite3.connect('database.sqlite')
-    cursor_obj = connection_obj.cursor()
-
-    dashboard_columns = ["year", "make", "model"]
-    dashboard_vehicle = cursor_obj.execute(
-        'SELECT year, make, model FROM owned_vehicle;').fetchall()
-
-    vehicle_list = []
-    for row in dashboard_vehicle:
-        vehicle_dict = {}
-        for i, col in enumerate(dashboard_columns):
-            vehicle_dict[col] = row[i]
-        vehicle_list.append(vehicle_dict)
-
-    return render_template(
-        'dashboard.html',
-        vehicles=vehicle_list
-    )
-
-
-@app.route('/dashboard', methods=["GET", "POST"])
-def dashboard():
-    form = forms.AddVehicleForm(request.form)
-    print(form)
-    if form.validate_on_submit():
-        return redirect("dashboard")
-    if request.method == "POST":
-        name = request.form.get("make")
-        return f"<h1>You did it, {name}!</h1>"
-    return render_template(
-        'dashboard.html',
-        form=form
-    )
-
-
 @app.route('/api-test')
 def api_test():
     #     vin_request = requests.get(
