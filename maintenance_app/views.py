@@ -35,7 +35,7 @@ def view(owned_vehicle_id):
         'SELECT maintenance_description, repair_difficulty, repair_total_cost, due_mileage FROM maintenance;').fetchmany(5)
 
 
-    if maintenance 
+    # if maintenance 
     maintenance_list = []
     for row in maintenance:
         maintenance_dict = {}
