@@ -48,7 +48,10 @@ def view():
     for row in recall: 
         recall_dict = {} 
         for i, col in enumerate(recall_col_names):
-            recall_dict[col] = row[i]
+            if col not in ("recall_number", "date"): 
+                recall_dict[col] = row[i].capitalize()
+            else: 
+                recall_dict[col] = row[i]
         recall_list.append(recall_dict)
 
     return render_template(

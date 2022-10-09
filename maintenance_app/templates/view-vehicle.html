@@ -96,17 +96,16 @@
                         <h2 class="accordion-header" id="headingOne">
                             <button class="accordion-button" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#collapseHeader" aria-expanded="true" aria-controls="collapseHeader">
-                                 {{recall.recall_number}}
+                                Recall {{ recall.recall_number}}
                             </button>
                         </h2>
                         <div id="collapseHeader" class="accordion-collapse collapse show" aria-labelledby="headingOne"
                             data-bs-parent="#accordionExample">
                             <div class="accordion-body">
-                                {{recall.description}}<br/>
-                                <strong>{{recall.action}}</strong> <br />
-                                <strong>{{recall.consequence}}</strong> <br />
-                                <strong>{{recall.date}}</strong> <br />
-
+                                <strong> Date: </strong> {{recall.date}} <br />
+                                <strong>Description:</strong> {{recall.description}}<br/>
+                                <strong>Required:</strong>  {{recall.action}} <br />
+                                <strong>Consequence:</strong> {{recall.consequence}} <br />
                             </div>
                         </div>
                     </div>
@@ -116,7 +115,7 @@
 
             <!-- Accordion -->
             <section>
-                <h2>Sevice History</h2>
+                <h2>Service History</h2>
                 <div class="accordion" id="accordionHistory">
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="headingHistory">
