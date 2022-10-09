@@ -2,7 +2,7 @@
 
 {% block content %}
 <header class="align-items-center pb-3 mb-5 border-bottom">
-    <img src="../static/images/kia-sorento.png" class="mx-auto img-fluid d-block" alt="..." />
+    <img src="../static/images/car.jpg" class="mx-auto img-fluid d-block" alt="..." style="max-width:400px" />
     <h1>{{ year }} {{ make }} {{ model }}</h1>
 </header>
 
@@ -26,7 +26,6 @@
                 <tr>
                     <td>{{ service.service }}</td>
                     <td>{{ service.difficulty }}</td>
-
                     <td>{{ service.mileage }}</td>
 
                     <td>
@@ -94,10 +93,7 @@
                 <tr>
                     <td>{{ service.service }}</td>
                     <td>{{ service.difficulty }}</td>
-
                     <td>{{ service.mileage }}</td>
-
-
                 </tr>
                 {% endfor %}
                 <!-- End Jinja loop-->
