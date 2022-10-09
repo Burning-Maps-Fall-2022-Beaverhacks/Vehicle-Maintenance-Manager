@@ -80,7 +80,8 @@ def create_tables(connection_obj):
                     repair_difficulty INT, 
                     repair_hours REAL, 
                     repair_total_cost REAL, 
-                    maintenance_date datetime); """
+                    maintenance_date datetime, 
+                    status TEXT); """
 
 
 
