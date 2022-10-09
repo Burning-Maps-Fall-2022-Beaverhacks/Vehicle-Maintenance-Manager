@@ -7,7 +7,7 @@ from flask import current_app as app, request, render_template
 import requests
 import json
 import sqlite3
-from . import apiconfig
+from . import apiconfig, forms
 import database.api_response_tests
 import pprint
 
@@ -37,8 +37,7 @@ def view():
     maintenance = cursor_obj.execute(
         'SELECT maintenance_description, repair_difficulty, repair_total_cost, due_mileage FROM maintenance WHERE owned_vehicle_id = ?;', (owned_vehicle_id,)).fetchmany(5)
 
-
-    # if maintenance 
+    # if maintenance
     maintenance_list = []
     for row in maintenance:
         maintenance_dict = {}
@@ -69,11 +68,12 @@ def view():
     )
 
 
-@app.route('/dashboard/<int:owner_id>')
+@app.route('/dashboard/<int:owner_id>', methods=["GET", "POST"])
 def dashboard(owner_id):
     connection_obj = sqlite3.connect('database.sqlite')
     cursor_obj = connection_obj.cursor()
-    dashboard_columns = ["year", "make", "model", "owner_id", "vehicle_id", "owned_vehicle_id"]
+    dashboard_columns = ["year", "make", "model",
+                         "owner_id", "vehicle_id", "owned_vehicle_id"]
     dashboard_vehicle = cursor_obj.execute(
         'SELECT year, make, model, owner_id, vehicle_id, owned_vehicle_id FROM owned_vehicle;').fetchall()
     vehicle_list = []
@@ -82,13 +82,24 @@ def dashboard(owner_id):
         for i, col in enumerate(dashboard_columns):
             vehicle_dict[col] = row[i]
         vehicle_list.append(vehicle_dict)
+
+    # Add Vehicle form handling
+    form = forms.AddVehicleForm(request.form)
+    print(form)
+    if form.validate_on_submit():
+        return redirect("dashboard")
+    if request.method == "POST":
+        name = request.form.get("make")
+        return f"<h1>You did it, {name}!</h1>"
+
     return render_template(
         'dashboard.html',
-        vehicles=vehicle_list
+        vehicles=vehicle_list,
+        form=form
     )
 
 
-@app.route('/api-test')
+@ app.route('/api-test')
 def api_test():
     #     vin_request = requests.get(
     #         'http://api.carmd.com/v3.0/decode?vin=1GNALDEK9FZ108495', headers=header)
@@ -140,7 +151,7 @@ def api_test():
         Transmission: {transmission}, Year: {year}, Engine: {engine}, Trim: {trim}'
 
 
-@app.route('/api-get-maintenance')
+@ app.route('/api-get-maintenance')
 def api_get_maintenance_test():
 
     # maintenance_request = requests.get("http://api.carmd.com/v3.0/maint?year=2021&make=TOYOTA&model=COROLLA&mileage=8000", headers=apiconfig.header)
@@ -184,7 +195,7 @@ def api_get_maintenance_test():
     return f'parts_needed:{part_needed}'
 
 
-@app.route('/api-get-recall')
+@ app.route('/api-get-recall')
 def api_get_recall_test():
     # recall_request = requests.get("http://api.carmd.com/v3.0/recall?year=2017&make=HONDA&model=ACCORD", headers=apiconfig.header)
     # recall_json = recall_request.json()
