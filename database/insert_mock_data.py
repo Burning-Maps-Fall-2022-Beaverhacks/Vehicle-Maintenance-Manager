@@ -22,11 +22,11 @@ cursor_obj = connection_obj.cursor()
 # print(f'{cursor_obj.rowcount} records were inserted into the vehicle table')
 
 # owned vehicle 
-owned_vehicle = [(None, "", 1, 3, "Ford", 'Focus', 'Ford', 'gasoline', "", "", 2003,"","","","","Michael","Scott", "Michael Scott", 288000, "", "" ),
-                 (None, "", 1, 3, "Tesla", 'Cybertruck', 'Tesla', 'electric', "", "", 2023,"","","","","Michael","Scott", "Michael Scott", -15000, "", ""),
-                 (None, "", 1, 3, "Toyota", 'Prius', 'Toyota', 'hybrid', "", "", 2015,"","","","","Michael","Scott", "Michael Scott", 112000, "", "" )]
+owned_vehicle = [(None, "", 1, 3, "Ford", 'Focus', 'Ford', 'gasoline', "", "", 2003,"","","","","Michael","Scott", "Michael Scott", 288000, "", "",0),
+                 (None, "", 1, 3, "Tesla", 'Cybertruck', 'Tesla', 'electric', "", "", 2023,"","","","","Michael","Scott", "Michael Scott", -15000, "", "",0),
+                 (None, "", 1, 3, "Toyota", 'Prius', 'Toyota', 'hybrid', "", "", 2015,"","","","","Michael","Scott", "Michael Scott", 112000, "", "",0)]
 
-cursor_obj.executemany('INSERT INTO owned_vehicle values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', owned_vehicle)
+cursor_obj.executemany('INSERT INTO owned_vehicle values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', owned_vehicle)
 connection_obj.commit()
 print(f'{cursor_obj.rowcount} records were inserted into the owned_vehicle table')
 connection_obj.close() 

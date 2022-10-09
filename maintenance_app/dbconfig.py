@@ -56,7 +56,8 @@ def create_tables(connection_obj):
                         owner_full_name CHAR(50) NOT NULL, 
                         mileage INT, 
                         last_oil_change datetime, 
-                        last_maintenance_appointment datetime); """
+                        last_maintenance_appointment datetime, 
+                        api_call INT); """
 
     create_recall_table = """CREATE TABLE recall  ( 
                         recall_id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -80,6 +81,7 @@ def create_tables(connection_obj):
                     repair_hours REAL, 
                     repair_total_cost REAL, 
                     maintenance_date datetime); """
+
 
 
     create_table_queries = [create_vehicle_table, create_owner_table,
