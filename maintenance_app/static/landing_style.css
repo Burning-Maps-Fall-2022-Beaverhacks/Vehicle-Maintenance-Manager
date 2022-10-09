@@ -3,10 +3,10 @@ body {
 }
 
 footer {
-  height: 65px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  /* justify-content: center; */
+  flex-direction: column;
 }
 
 .creator-profile {
@@ -51,4 +51,16 @@ footer {
 
 .header-text {
   color: #fff;
+}
+
+.hero-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+
+.hero-h2 {
+  font-size: x-large;
 }
