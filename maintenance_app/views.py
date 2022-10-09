@@ -28,22 +28,21 @@ def view():
 
     connection_obj = sqlite3.connect('database.sqlite')
     cursor_obj = connection_obj.cursor()
-
-    
-    cols = cursor_obj.execute("PRAGMA table_info(maintenance)").fetchall()
-
-    # col_names = ["service", "difficulty", "cost", "mileage", "severity"]
     col_names = ["service", "difficulty", "cost", "mileage"]
-    maintenance = cursor_obj.execute(f'SELECT maintenance_description, repair_difficulty, repair_total_cost, due_mileage FROM maintenance;').fetchmany(5) 
-    maintenance_dict = {}
+    maintenance = cursor_obj.execute(
+        'SELECT maintenance_description, repair_difficulty, repair_total_cost, due_mileage FROM maintenance;').fetchmany(5)
+    maintenance_list = []
     for row in maintenance:
-        for i, col in enumerate(col_names): 
-            maintenance_dict[col] = row[i] 
-    
-    print(maintenance_dict)
-    
-    return "return"
+        maintenance_dict = {}
+        for i, col in enumerate(col_names):
+            maintenance_dict[col] = row[i]
+        maintenance_list.append(maintenance_dict)
 
+    print(maintenance_dict)
+    return render_template(
+        'view-vehicle.html',
+        maint=maintenance_list
+    )
 
 
 @app.route('/api-test')

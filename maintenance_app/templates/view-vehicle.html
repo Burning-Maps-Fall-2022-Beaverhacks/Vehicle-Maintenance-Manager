@@ -52,20 +52,21 @@
                         <tr>
                             <th scope="col">Service</th>
                             <th scope="col">Difficulty</th>
-                            <th scope="col">Cost</th>
+
                             <th scope="col">Due at Mileage</th>
-                            <th scope="col">Severity</th>
+
                             <th scope="col">Complete</th>
                         </tr>
                     </thead>
                     <tbody>
                         <!-- Start Jinja Loop -->
+                        {% for service in maint %}
                         <tr>
-                            <td>Oil Change</td>
-                            <td>Easy</td>
-                            <td>$40</td>
-                            <td>21000</td>
-                            <td>Moderate</td>
+                            <td>{{ service.service }}</td>
+                            <td>{{ service.difficulty }}</td>
+
+                            <td>{{ service.mileage }}</td>
+
                             <td>
                                 <button type="button" class="btn btn-success">Complete</button>
                                 <button type="button"
@@ -79,6 +80,7 @@
                                 </ul>
                             </td>
                         </tr>
+                        {% endfor %}
                         <!-- End Jinja loop-->
                     </tbody>
                 </table>
@@ -96,14 +98,9 @@
                         <div id="collapseHeader" class="accordion-collapse collapse show" aria-labelledby="headingOne"
                             data-bs-parent="#accordionExample">
                             <div class="accordion-body">
-                                <strong>This is the first item's accordion body.</strong> It is shown by default, until
-                                the
-                                collapse plugin adds the appropriate classes that we use to style each element. These
-                                classes control the overall appearance, as well as the showing and hiding via CSS
-                                transitions. You can modify any of this with custom CSS or overriding our default
-                                variables.
-                                It's also worth noting that just about any HTML can go within the
-                                <code>.accordion-body</code>, though the transition does limit overflow.
+                                <strong>Name of the Service.</strong> <br /> This is a description of the service.
+                                <strong>Recommended Action</strong> <br />
+                                You should do the following to remedy the problem:
                             </div>
                         </div>
                     </div>
