@@ -41,9 +41,9 @@ def view():
         maintenance_list.append(maintenance_dict)
 
     # recall info
-    recall_col_names = ["description", "action", "consequence", "date"]
+    recall_col_names = ["recall_number", "description", "action", "consequence", "date"]
     recall = cursor_obj.execute(
-        'SELECT description, recommended_action, consequence, recall_date FROM recall ORDER BY recall_date DESC;').fetchmany(5)
+        'SELECT recall_number, description, recommended_action, consequence, recall_date FROM recall ORDER BY recall_date DESC;').fetchmany(5)
     recall_list = []
     for row in recall: 
         recall_dict = {} 
@@ -54,7 +54,7 @@ def view():
     return render_template(
         'view-vehicle.html',
         maint=maintenance_list, 
-        recall=recall_list
+        recalls=recall_list
 
     )
 

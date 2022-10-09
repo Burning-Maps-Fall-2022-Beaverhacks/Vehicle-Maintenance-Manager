@@ -86,29 +86,31 @@
                 </table>
 
                 <!-- Accordion -->
-                
+
             </section>
             <section class="py-5">
                 <h2>Recall Information</h2>
                 <div class="accordion" id="accordionExample">
+                    {% for recall in recalls %}
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="headingOne">
                             <button class="accordion-button" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#collapseHeader" aria-expanded="true" aria-controls="collapseHeader">
-                                <strong>Name of the Service.</strong> This is a description of the service.
+                                 {{recall.recall_number}}
                             </button>
                         </h2>
                         <div id="collapseHeader" class="accordion-collapse collapse show" aria-labelledby="headingOne"
                             data-bs-parent="#accordionExample">
                             <div class="accordion-body">
-                                <strong>Recommended Action</strong> <br />
-                                <strong>Consequence</strong> <br />
-                                <strong>Recall Date</strong> <br />
+                                {{recall.description}}<br/>
+                                <strong>{{recall.action}}</strong> <br />
+                                <strong>{{recall.consequence}}</strong> <br />
+                                <strong>{{recall.date}}</strong> <br />
 
                             </div>
                         </div>
                     </div>
-                    
+                    {% endfor %}
                 </div>
             </section>
 
