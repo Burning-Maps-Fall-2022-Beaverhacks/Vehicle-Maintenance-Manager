@@ -55,10 +55,11 @@ def view():
     complete_status = 'Complete'
     maintenance = cursor_obj.execute(
         'SELECT maintenance_id, maintenance_description, repair_difficulty, due_mileage, status FROM maintenance WHERE owned_vehicle_id = ? AND status != ?;', (owned_vehicle_id, complete_status)).fetchmany(6)
-    col_names = ["maintenance_id", "service", "difficulty", "mileage", "status"]
+    col_names = ["maintenance_id", "service",
+                 "difficulty", "mileage", "status"]
     maintenance_list = []
     for row in maintenance:
-        if row[-1] != 'Complete': 
+        if row[-1] != 'Complete':
             maintenance_dict = {}
             for i, col in enumerate(col_names):
                 maintenance_dict[col] = row[i]
@@ -66,22 +67,20 @@ def view():
     print("Maintenance list: ", maintenance,
           "\n Owned Vehicle ID: ", owned_vehicle_id)
 
-
     # Completed service list of tuples
-    #     complete_status = 'Complete'
-    # owned_vehicle_id = 1
-    # maintenance = cursor_obj.execute(
-    #     'SELECT maintenance_id, maintenance_description, repair_difficulty, due_mileage, status FROM maintenance WHERE owned_vehicle_id = ? AND status = ?;', (owned_vehicle_id, complete_status)).fetchmany(5)
-    # col_names = ["maintenance_id", "service", "difficulty", "mileage", "status"]
-    # maintenance_list = []
-    # for row in maintenance:
-    #     if row[-1] != 'Complete': 
-    #         maintenance_dict = {}
-    #         for i, col in enumerate(col_names):
-    #             maintenance_dict[col] = row[i]
-    #         maintenance_list.append(maintenance_dict)
-    # print("Maintenance list: ", maintenance) 
-
+    complete_status = 'Complete'
+    maintenance = cursor_obj.execute(
+        'SELECT maintenance_id, maintenance_description, repair_difficulty, due_mileage, status FROM maintenance WHERE owned_vehicle_id = ? AND status = ?;', (owned_vehicle_id, complete_status)).fetchall()
+    col_names = ["maintenance_id", "service",
+                 "difficulty", "mileage", "status"]
+    completed_maintenance_list = []
+    for row in maintenance:
+        if row[-1] == 'Complete':
+            maintenance_dict = {}
+            for i, col in enumerate(col_names):
+                maintenance_dict[col] = row[i]
+            completed_maintenance_list.append(maintenance_dict)
+    print("Maintenance list: ", completed_maintenance_list)
 
     # recall info
     recall = cursor_obj.execute(
@@ -106,6 +105,7 @@ def view():
         make=make,
         model=model,
         maint=maintenance_list[:5],
+        complete=completed_maintenance_list,
         recalls=recall_list,
         vehicle_id=vehicle_id,
         owned_vehicle_id=owned_vehicle_id,
@@ -123,9 +123,9 @@ def service():
         # return f"<h1>{status}</h1>"
         # Query db; change status to complete
         connection_obj = sqlite3.connect('database.sqlite')
-        cursor_obj = connection_obj.cursor()    
+        cursor_obj = connection_obj.cursor()
         cursor_obj.execute(
-            'UPDATE maintenance SET status = ? WHERE maintenance_id = ?;', (status, maintenance_id,)) 
+            'UPDATE maintenance SET status = ? WHERE maintenance_id = ?;', (status, maintenance_id,))
         connection_obj.commit()
         connection_obj.close()
 
@@ -152,7 +152,7 @@ def dashboard(owner_id):
     print(form)
     if form.validate_on_submit():
         return redirect("dashboard")
-    
+
     if request.method == "POST":
         year = request.form.get("year")
         make = request.form.get("make")
@@ -168,19 +168,20 @@ def dashboard(owner_id):
         cursor_obj.execute(
             'INSERT INTO vehicle values (?,?,?,?,?,?,?,?,?)', vehicle_record)
         connection_obj.commit()
-    
+
         vehicle_id = cursor_obj.execute(
             'SELECT MAX(vehicle_id) FROM vehicle;').fetchone()[0]
 
-        owner_info = cursor_obj.execute('SELECT first_name, last_name, full_name FROM owner WHERE owner_id = ?', (owner_id,)).fetchone()
+        owner_info = cursor_obj.execute(
+            'SELECT first_name, last_name, full_name FROM owner WHERE owner_id = ?', (owner_id,)).fetchone()
         connection_obj.commit()
-        owned_vehicle = (None, "", vehicle_id, owner_id, make, model, "", "", "", "", year, "", "", "", "", owner_info[0], owner_info[1], owner_info[2], mileage, "", "", 0)
+        owned_vehicle = (None, "", vehicle_id, owner_id, make, model, "", "", "", "", year,
+                         "", "", "", "", owner_info[0], owner_info[1], owner_info[2], mileage, "", "", 0)
 
         cursor_obj.execute(
             'INSERT INTO owned_vehicle values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', owned_vehicle)
         connection_obj.commit()
         connection_obj.close()
-
 
     return render_template(
         'dashboard.html',
