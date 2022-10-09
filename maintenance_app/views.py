@@ -23,8 +23,8 @@ def index():
     )
 
 
-@app.route('/view/<int:owned_vehicle_id>')
-def view(owned_vehicle_id):
+@app.route('/view/<int:owner_id>/<int:vehicle_id>/<int:owned_vehicle_id>')
+def view(owner_id, vehicle_id, owned_vehicle_id):
 
     connection_obj = sqlite3.connect('database.sqlite')
     cursor_obj = connection_obj.cursor()
@@ -32,7 +32,7 @@ def view(owned_vehicle_id):
 
     # maintenance info
     maintenance = cursor_obj.execute(
-        'SELECT maintenance_description, repair_difficulty, repair_total_cost, due_mileage FROM maintenance;').fetchmany(5)
+        'SELECT maintenance_description, repair_difficulty, repair_total_cost, due_mileage FROM maintenance WHERE owned_vehicle_id = ?;', (owned_vehicle_id,)).fetchmany(5)
 
 
     # if maintenance 
@@ -47,7 +47,7 @@ def view(owned_vehicle_id):
     recall_col_names = ["recall_number",
                         "description", "action", "consequence", "date"]
     recall = cursor_obj.execute(
-        'SELECT recall_number, description, recommended_action, consequence, recall_date FROM recall ORDER BY recall_date DESC;').fetchmany(5)
+        'SELECT recall_number, description, recommended_action, consequence, recall_date FROM recall WHERE vehicle_id = ? ORDER BY recall_date DESC;', (vehicle_id,)).fetchmany(5)
     recall_list = []
     for row in recall:
         recall_dict = {}
@@ -70,9 +70,9 @@ def view(owned_vehicle_id):
 def dashboard(owner_id):
     connection_obj = sqlite3.connect('database.sqlite')
     cursor_obj = connection_obj.cursor()
-    dashboard_columns = ["year", "make", "model", "owned_vehicle_id"]
+    dashboard_columns = ["year", "make", "model", "owner_id", "vehicle_id", "owned_vehicle_id"]
     dashboard_vehicle = cursor_obj.execute(
-        'SELECT year, make, model, owned_vehicle_id FROM owned_vehicle;').fetchall()
+        'SELECT year, make, model, owner_id, vehicle_id, owned_vehicle_id FROM owned_vehicle;').fetchall()
     vehicle_list = []
     for row in dashboard_vehicle:
         vehicle_dict = {}

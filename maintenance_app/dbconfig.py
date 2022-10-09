@@ -71,7 +71,7 @@ def create_tables(connection_obj):
 
     create_maintenance_table = """CREATE TABLE maintenance  ( 
                     maintenance_id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    vehicle_id INT, 
+                    owned_vehicle_id INT, 
                     maintenance_description TEXT,
                     due_mileage INT, 
                     parts_needed TEXT, 
