@@ -31,7 +31,9 @@ def create_tables(connection_obj):
                         owner_id INTEGER PRIMARY KEY AUTOINCREMENT,
                         first_name CHAR(25) NOT NULL,
                         last_name CHAR(25) NOT NULL, 
-                        full_name CHAR(50) NOT NULL); """
+                        full_name CHAR(50) NOT NULL, 
+                        email TEXT NOT NULL, 
+                        password NOT NULL); """
 
     create_owned_vehicle_table = """CREATE TABLE owned_vehicle  ( 
                         owned_vehicle_id INTEGER PRIMARY KEY AUTOINCREMENT,
