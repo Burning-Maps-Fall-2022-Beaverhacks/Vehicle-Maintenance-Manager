@@ -132,8 +132,9 @@ def service():
     return redirect(f'/view?vehicle_id={vehicle_id}&owned_vehicle={owned_vehicle_id}')
 
 
-@app.route('/dashboard/<int:owner_id>', methods=["GET", "POST"])
-def dashboard(owner_id):
+@app.route('/dashboard/', methods=["GET", "POST"])
+def dashboard():
+    owner_id = 1
     connection_obj = sqlite3.connect('database.sqlite')
     cursor_obj = connection_obj.cursor()
     dashboard_columns = ["year", "make", "model",
@@ -182,6 +183,7 @@ def dashboard(owner_id):
             'INSERT INTO owned_vehicle values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', owned_vehicle)
         connection_obj.commit()
         connection_obj.close()
+        return redirect(url_for('dashboard'))
 
     return render_template(
         'dashboard.html',
