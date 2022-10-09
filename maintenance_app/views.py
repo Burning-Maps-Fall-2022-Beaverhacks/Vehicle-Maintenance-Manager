@@ -124,9 +124,35 @@ def dashboard(owner_id):
     print(form)
     if form.validate_on_submit():
         return redirect("dashboard")
+    
     if request.method == "POST":
-        name = request.form.get("make")
-        return f"<h1>You did it, {name}!</h1>"
+        year = request.form.get("year")
+        make = request.form.get("make")
+        model = request.form.get("model")
+        mileage = request.form.get("mileage")
+        color = request.form.get("color")
+        # return f"<h1>You did it, {name}!</h1>"
+        connection_obj = sqlite3.connect('database.sqlite')
+        cursor_obj = connection_obj.cursor()
+
+        # insert into vehicle table
+        vehicle_record = (None, make, model, year, "", "", "", "", color)
+        cursor_obj.execute(
+            'INSERT INTO vehicle values (?,?,?,?,?,?,?,?,?)', vehicle_record)
+        connection_obj.commit()
+    
+        vehicle_id = cursor_obj.execute(
+            'SELECT MAX(vehicle_id) FROM vehicle;').fetchone()[0]
+
+        owner_info = cursor_obj.execute('SELECT first_name, last_name, full_name FROM owner WHERE owner_id = ?', (owner_id,)).fetchone()
+        connection_obj.commit()
+        owned_vehicle = (None, "", vehicle_id, owner_id, make, model, "", "", "", "", year, "", "", "", "", owner_info[0], owner_info[1], owner_info[2], mileage, "", "", 0)
+
+        cursor_obj.execute(
+            'INSERT INTO owned_vehicle values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', owned_vehicle)
+        connection_obj.commit()
+        connection_obj.close()
+
 
     return render_template(
         'dashboard.html',
