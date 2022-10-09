@@ -32,9 +32,8 @@ def view():
     connection_obj = sqlite3.connect('database.sqlite')
     cursor_obj = connection_obj.cursor()
 
-    print('owned_vehicle_id')
+    
     has_api_been_called = cursor_obj.execute('SELECT api_call FROM owned_vehicle WHERE owned_vehicle_id = ?', (owned_vehicle_id,)).fetchone()[0]
-    print('has_api_been_called')
     if has_api_been_called != 1: 
         # make api call for maintenance and recall
         api_get_maintenance_test()
