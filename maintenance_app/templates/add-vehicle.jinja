@@ -15,23 +15,23 @@
             <form method="POST" action="/dashboard/1"> {#{{ url_for('dashboard') }}#}
               <fieldset class="form-field mb-3">
                 {{ form.year.label }}
-                {{ form.year(class_="form-control") }}
+                {{ form.year(class_="form-control", placeholder="YYYY") }}
               </fieldset>
               <fieldset class="form-field mb-3">
                 {{ form.make.label }}
-                {{ form.make(class_="form-control") }}
+                {{ form.make(class_="form-control", placeholder="e.g., Chevrolet") }}
               </fieldset>
               <fieldset class="form-field mb-3">
                 {{ form.model.label }}
-                {{ form.model(class_="form-control") }}
+                {{ form.model(class_="form-control", placeholder="e.g., Corvette") }}
               </fieldset>
               <fieldset class="form-field mb-3">
                 {{ form.mileage.label }}
-                {{ form.mileage(class_="form-control") }}
+                {{ form.mileage(class_="form-control", placeholder="Number only") }}
               </fieldset>
               <fieldset class="form-field mb-3">
                 {{ form.color.label }}
-                {{ form.color(class_="form-control") }}
+                {{ form.color(class_="form-control", placeholder="e.g., Red") }}
               </fieldset>
           </div>
         </section>
