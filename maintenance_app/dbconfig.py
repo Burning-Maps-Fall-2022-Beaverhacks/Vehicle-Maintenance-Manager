@@ -92,6 +92,11 @@ def create_tables(connection_obj):
     for create_statement in create_table_queries:
         cursor_obj.execute(create_statement)
 
+
+    # insert user 
+    owner = (None, "Eric", "Kelly", "Eric Kelly", "kelleric@oregonstate.edu", "unencryptedpassword")
+    cursor_obj.executemany('INSERT INTO owner values (?,?,?,?,?,?)', owner)
+    connection_obj.commit()
     print("Vehicle, owner, owned_vehicle, recall, and maintenance tables are ready")
 
     connection_obj.close()
