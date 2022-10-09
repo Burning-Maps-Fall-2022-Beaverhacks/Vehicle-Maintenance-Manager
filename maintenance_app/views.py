@@ -29,6 +29,8 @@ def view():
     connection_obj = sqlite3.connect('database.sqlite')
     cursor_obj = connection_obj.cursor()
     col_names = ["service", "difficulty", "cost", "mileage"]
+
+    # maintenance info 
     maintenance = cursor_obj.execute(
         'SELECT maintenance_description, repair_difficulty, repair_total_cost, due_mileage FROM maintenance;').fetchmany(5)
     maintenance_list = []
@@ -38,11 +40,27 @@ def view():
             maintenance_dict[col] = row[i]
         maintenance_list.append(maintenance_dict)
 
-    print(maintenance_dict)
+    # recall info
+    recall_col_names = ["description", "action", "consequence", "date"]
+    recall = cursor_obj.execute(
+        'SELECT description, recommended_action, consequence, recall_date FROM recall ORDER BY recall_date DESC;').fetchmany(5)
+    recall_list = []
+    for row in recall: 
+        recall_dict = {} 
+        for i, col in enumerate(recall_col_names):
+            recall_dict[col] = row[i]
+        recall_list.append(recall_dict)
+
     return render_template(
         'view-vehicle.html',
-        maint=maintenance_list
+        maint=maintenance_list, 
+        recall=recall_list
+
     )
+
+
+
+
 
 
 @app.route('/api-test')
