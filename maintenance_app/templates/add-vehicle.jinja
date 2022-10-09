@@ -12,7 +12,7 @@
         <section class="form-info-sec">
           <p class="my-0">Please Enter Your Vehicle Information</p>
           <div class="form-wrapper">
-            <form method="POST" action="/dashboard/1"> {#{{ url_for('dashboard') }}#}
+            <form method="POST" action="/dashboard/"> {#{{ url_for('dashboard') }}#}
               <fieldset class="form-field mb-3">
                 {{ form.year.label }}
                 {{ form.year(class_="form-control", placeholder="YYYY") }}
