@@ -63,6 +63,7 @@ def view():
         maintenance_list.append(maintenance_dict)
     print("Maintenance list: ", maintenance,
           "\n Owned Vehicle ID: ", owned_vehicle_id)
+
     # recall info
     recall = cursor_obj.execute(
         'SELECT recall_number, description, recommended_action, consequence, recall_date FROM recall WHERE vehicle_id = ? ORDER BY recall_date DESC;', (vehicle_id,)).fetchmany(5)
@@ -77,7 +78,9 @@ def view():
             else:
                 recall_dict[col] = row[i]
         recall_list.append(recall_dict)
-
+    
+    print(recall_list)
+    
     return render_template(
         'view-vehicle.html',
         year=year,
@@ -210,10 +213,10 @@ def api_get_maintenance_test(year, make, model, miles_driven, owned_vehicle_id):
             repair_total_cost = maintenance_item['repair']['total_cost']
 
         insert_data = (None, owned_vehicle_id, maintenance_item['desc'], maintenance_item['due_mileage'], part_needed,
-                       part_price, part_quantity, repair_difficulty, repair_hours, repair_total_cost, None)
+                       part_price, part_quantity, repair_difficulty, repair_hours, repair_total_cost, None, "Incomplete")
         print(insert_data)
         cursor_obj.execute(
-            'INSERT INTO maintenance VALUES (?,?,?,?,?,?,?,?,?,?,?)', insert_data)
+            'INSERT INTO maintenance VALUES (?,?,?,?,?,?,?,?,?,?,?,?)', insert_data)
         connection_obj.commit()
 
     connection_obj.close()
