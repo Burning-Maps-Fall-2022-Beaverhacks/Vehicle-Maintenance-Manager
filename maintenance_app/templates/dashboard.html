@@ -23,7 +23,7 @@
                         <td>{{ vehicle.year }}</td>
                         <td>{{ vehicle.make }}</td>
                         <td>{{ vehicle.model }}</td>
-                        <td><a href={{ "../view/" + vehicle.owned_vehicle_id|string}} type="button"
+                        <td><a href={{ "../view?owner=" + vehicle.owner_id|string + "&vehicle=" + vehicle.vehicle_id|string + "&owned_vehicle=" + vehicle.owned_vehicle_id|string}} type="button"
                                 class="btn btn-primary position-relative mx-auto">
                                 View
                                 <!-- <span

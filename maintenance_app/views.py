@@ -23,8 +23,11 @@ def index():
     )
 
 
-@app.route('/view/<int:owner_id>/<int:vehicle_id>/<int:owned_vehicle_id>')
-def view(owner_id, vehicle_id, owned_vehicle_id):
+@app.route('/view')
+def view():
+    owner_id = request.args.get("owner")
+    vehicle_id = request.args.get("vehicle")
+    owned_vehicle_id = request.args.get("owned_vehicle")
 
     connection_obj = sqlite3.connect('database.sqlite')
     cursor_obj = connection_obj.cursor()
