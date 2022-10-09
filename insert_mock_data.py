@@ -1,5 +1,4 @@
 import sqlite3
-
 connection_obj = sqlite3.connect('database.sqlite')
 
 cursor_obj = connection_obj.cursor()
@@ -10,8 +9,8 @@ owner_records = [(None, "James", "McGill", "James McGill", "james.mcgill@hotmail
                   "kim.wexler@gmail.com", "law"),
                  (None, "Michael", "Scott", "Michael Scott", "michael.scott@yahoo.com", "password")]
 
-
-cursor_obj.executemany('INSERT INTO owner values (?,?,?,?,?,?)', owner_records)
+cursor_obj.executemany(
+    'INSERT INTO owner values (?,?,?,?,?,?)', owner_records)
 connection_obj.commit()
 print(f'{cursor_obj.rowcount} records were inserted into the owner table')
 

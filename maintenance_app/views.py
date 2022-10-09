@@ -3,7 +3,7 @@ A view function is the code you write to respond to requests.
 Flask uses patterns to match the incoming request URL to the view that should handle it.
 """
 
-from flask import current_app as app, request, render_template
+from flask import current_app as app, request, render_template, redirect, url_for
 import requests
 import json
 import sqlite3
@@ -78,9 +78,9 @@ def view():
             else:
                 recall_dict[col] = row[i]
         recall_list.append(recall_dict)
-    
+
     print(recall_list)
-    
+
     return render_template(
         'view-vehicle.html',
         year=year,
@@ -88,7 +88,20 @@ def view():
         model=model,
         maint=maintenance_list,
         recalls=recall_list,
+        vehicle_id=vehicle_id,
+        owned_vehicle_id=owned_vehicle_id
     )
+
+
+@app.route('/service')
+def service():
+    vehicle_id = request.args.get("vehicle")
+    owned_vehicle_id = request.args.get("owned_vehicle")
+    status = request.args.get("status")
+    if status == "Complete":
+        pass
+        # Query db; change status to complete
+    return redirect(f'/view?vehicle_id={vehicle_id}&owned_vehicle={owned_vehicle_id}')
 
 
 @app.route('/dashboard/<int:owner_id>', methods=["GET", "POST"])
