@@ -1,49 +1,33 @@
 import sqlite3 
 
-connection_obj = sqlite3.connect('test.db')
+connection_obj = sqlite3.connect('database.sqlite')
 
 cursor_obj = connection_obj.cursor() 
 
-cursor_obj.execute('DELETE FROM vehicle;')
-print(f'{cursor_obj.rowcount} records were deleted from the vehicle table')
-cursor_obj.execute('DELETE FROM owner;')
-print(f'{cursor_obj.rowcount} records were deleted from the owner table')
+# mock owners                
+owner_records = [(None,"James", "McGill", "James McGill", "james.mcgill@hotmail.com", "JMM"),
+                 (None,"Kim", "Wexler", "Kim Wexler", "kim.wexler@gmail.com", "law"), 
+                 (None,"Michael", "Scott", "Michael Scott", "michael.scott@yahoo.com", "password")]
 
+
+cursor_obj.executemany('INSERT INTO owner values (?,?,?,?,?,?)', owner_records)
 connection_obj.commit()
+print(f'{cursor_obj.rowcount} records were inserted into the owner table')
 
-# mock data
-vehicle_records =   [(1,'Ford', 'Fusion', 2016, '26"/26"', "", "SAE 5W-30",5.7,33),
-                    (2, 'Jeep', 'Wrangler', 2020,'16"/16"', "", "SAE 5W-25",6,29),
-                    (3, 'Tesla', 'Model 3', 2022,'28"/18"', "", "",None, 33)]
-                
-owner_records = [(1, "James", "McGill", "James McGill"),
-                 (2, "Kim", "Wexler", "Kim Wexler"), 
-                 (3, "Michael", "Scott", "Michael Scott")]
-
-
-
-
+# mock vehicles
+vehicle_records = [(None, 'Ford', 'Focus', 2003, "", "", "", "", "Baby Blue"),
+                   (None, 'Tesla', 'Cybertruck', 2023, "", "", "", "", "Midnight Grey"),
+                   (None, 'Toyota', 'Prius', 2015, "", "", "", "", "Lime Green")]
 cursor_obj.executemany('INSERT INTO vehicle values (?,?,?,?,?,?,?,?,?)', vehicle_records)
 connection_obj.commit()
 print(f'{cursor_obj.rowcount} records were inserted into the vehicle table')
 
-cursor_obj.executemany('INSERT INTO owner values (?,?, ?, ?)', owner_records)
+# owned vehicle 
+owned_vehicle = [(None, "", 10, 3, "Ford", 'Focus', 'Ford', 'gasoline', "", "", 2003,"","","","","Michael","Scott", "Michael Scott", 288000, "", "",0),
+                 (None, "", 11, 3, "Tesla", 'Cybertruck', 'Tesla', 'electric', "", "", 2023,"","","","","Michael","Scott", "Michael Scott", -15000, "", "",0),
+                 (None, "", 12, 3, "Toyota", 'Prius', 'Toyota', 'hybrid', "", "", 2015,"","","","","Michael","Scott", "Michael Scott", 112000, "", "",0)]
+
+cursor_obj.executemany('INSERT INTO owned_vehicle values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', owned_vehicle)
 connection_obj.commit()
-print(f'{cursor_obj.rowcount} records were inserted into the owner table')
-
-
-vehicle_select_query = """SELECT * FROM vehicle;"""
-vehicle_select_result = cursor_obj.execute(vehicle_select_query)
-records = cursor_obj.fetchall() 
-print("Vehicle table: \n")
-for row in records: 
-    print([i for i in row])
-
-owner_select_query = """SELECT * FROM owner;"""
-owner_select_result = cursor_obj.execute(owner_select_query)
-records = cursor_obj.fetchall() 
-print("Owner table: \n")
-for row in records: 
-    print([i for i in row])
-
+print(f'{cursor_obj.rowcount} records were inserted into the owned_vehicle table')
 connection_obj.close() 

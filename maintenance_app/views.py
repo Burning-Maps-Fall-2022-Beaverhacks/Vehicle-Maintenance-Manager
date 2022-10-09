@@ -7,7 +7,7 @@ from flask import current_app as app, request, render_template
 import requests
 import json
 import sqlite3
-from . import apiconfig
+from . import apiconfig, forms
 import database.api_response_tests
 import pprint
 
@@ -23,11 +23,90 @@ def index():
     )
 
 
-@app.route('view')
+@app.route('/view')
 def view():
+    owner_id = request.args.get("owner")
+    vehicle_id = request.args.get("vehicle")
+    owned_vehicle_id = request.args.get("owned_vehicle")
+
+    connection_obj = sqlite3.connect('database.sqlite')
+    cursor_obj = connection_obj.cursor()
+
+    
+    has_api_been_called = cursor_obj.execute('SELECT api_call FROM owned_vehicle WHERE owned_vehicle_id = ?', (owned_vehicle_id,)).fetchone()[0]
+    if has_api_been_called != 1: 
+        # make api call for maintenance and recall
+        api_get_maintenance_test()
+        api_get_recall_test() 
+        cursor_obj.execute('UPDATE owned_vehicle SET api_call = 1 WHERE owned_vehicle_id =?', (owned_vehicle_id,))
+        connection_obj.commit() 
+
+    # maintenance info
+    maintenance = cursor_obj.execute(
+        'SELECT maintenance_description, repair_difficulty, repair_total_cost, due_mileage FROM maintenance WHERE owned_vehicle_id = ?;', (owned_vehicle_id,)).fetchmany(5)
+    col_names = ["service", "difficulty", "cost", "mileage"]
+    maintenance_list = []
+    for row in maintenance:
+        maintenance_dict = {}
+        for i, col in enumerate(col_names):
+            maintenance_dict[col] = row[i]
+        maintenance_list.append(maintenance_dict)
+
+    # recall info
+    recall = cursor_obj.execute(
+        'SELECT recall_number, description, recommended_action, consequence, recall_date FROM recall WHERE vehicle_id = ? ORDER BY recall_date DESC;', (vehicle_id,)).fetchmany(5)
+    recall_col_names = ["recall_number",
+                        "description", "action", "consequence", "date"]
+    recall_list = []
+    for row in recall:
+        recall_dict = {}
+        for i, col in enumerate(recall_col_names):
+            if col not in ("recall_number", "date"):
+                recall_dict[col] = row[i].capitalize()
+            else:
+                recall_dict[col] = row[i]
+        recall_list.append(recall_dict)
+
+    return render_template(
+        'view-vehicle.html',
+        maint=maintenance_list,
+        recalls=recall_list,
+        owned_vehicle_id=owned_vehicle_id
+    )
 
 
-@app.route('/api-test')
+@app.route('/dashboard/<int:owner_id>', methods=["GET", "POST"])
+def dashboard(owner_id):
+    connection_obj = sqlite3.connect('database.sqlite')
+    cursor_obj = connection_obj.cursor()
+    dashboard_columns = ["year", "make", "model",
+                         "owner_id", "vehicle_id", "owned_vehicle_id"]
+    dashboard_vehicle = cursor_obj.execute(
+        'SELECT year, make, model, owner_id, vehicle_id, owned_vehicle_id FROM owned_vehicle;').fetchall()
+    vehicle_list = []
+    for row in dashboard_vehicle:
+        vehicle_dict = {}
+        for i, col in enumerate(dashboard_columns):
+            vehicle_dict[col] = row[i]
+        vehicle_list.append(vehicle_dict)
+
+    # Add Vehicle form handling
+    form = forms.AddVehicleForm(request.form)
+    print(form)
+    if form.validate_on_submit():
+        return redirect("dashboard")
+    if request.method == "POST":
+        name = request.form.get("make")
+        return f"<h1>You did it, {name}!</h1>"
+
+    return render_template(
+        'dashboard.html',
+        vehicles=vehicle_list,
+        form=form
+    )
+
+
+@ app.route('/api-test')
 def api_test():
     #     vin_request = requests.get(
     #         'http://api.carmd.com/v3.0/decode?vin=1GNALDEK9FZ108495', headers=header)
@@ -79,7 +158,7 @@ def api_test():
         Transmission: {transmission}, Year: {year}, Engine: {engine}, Trim: {trim}'
 
 
-@app.route('/api-get-maintenance')
+@ app.route('/api-get-maintenance')
 def api_get_maintenance_test():
 
     # maintenance_request = requests.get("http://api.carmd.com/v3.0/maint?year=2021&make=TOYOTA&model=COROLLA&mileage=8000", headers=apiconfig.header)
@@ -123,7 +202,7 @@ def api_get_maintenance_test():
     return f'parts_needed:{part_needed}'
 
 
-@app.route('/api-get-recall')
+@ app.route('/api-get-recall')
 def api_get_recall_test():
     # recall_request = requests.get("http://api.carmd.com/v3.0/recall?year=2017&make=HONDA&model=ACCORD", headers=apiconfig.header)
     # recall_json = recall_request.json()

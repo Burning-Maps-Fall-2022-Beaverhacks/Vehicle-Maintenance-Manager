@@ -31,7 +31,9 @@ def create_tables(connection_obj):
                         owner_id INTEGER PRIMARY KEY AUTOINCREMENT,
                         first_name CHAR(25) NOT NULL,
                         last_name CHAR(25) NOT NULL, 
-                        full_name CHAR(50) NOT NULL); """
+                        full_name CHAR(50) NOT NULL, 
+                        email TEXT NOT NULL, 
+                        password NOT NULL); """
 
     create_owned_vehicle_table = """CREATE TABLE owned_vehicle  ( 
                         owned_vehicle_id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -54,7 +56,8 @@ def create_tables(connection_obj):
                         owner_full_name CHAR(50) NOT NULL, 
                         mileage INT, 
                         last_oil_change datetime, 
-                        last_maintenance_appointment datetime); """
+                        last_maintenance_appointment datetime, 
+                        api_call INT); """
 
     create_recall_table = """CREATE TABLE recall  ( 
                         recall_id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -68,7 +71,7 @@ def create_tables(connection_obj):
 
     create_maintenance_table = """CREATE TABLE maintenance  ( 
                     maintenance_id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    vehicle_id INT, 
+                    owned_vehicle_id INT, 
                     maintenance_description TEXT,
                     due_mileage INT, 
                     parts_needed TEXT, 
@@ -78,6 +81,7 @@ def create_tables(connection_obj):
                     repair_hours REAL, 
                     repair_total_cost REAL, 
                     maintenance_date datetime); """
+
 
 
     create_table_queries = [create_vehicle_table, create_owner_table,
