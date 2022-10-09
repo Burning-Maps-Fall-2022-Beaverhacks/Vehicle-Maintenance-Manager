@@ -31,13 +31,21 @@ def view():
 
     connection_obj = sqlite3.connect('database.sqlite')
     cursor_obj = connection_obj.cursor()
-    col_names = ["service", "difficulty", "cost", "mileage"]
+
+    print('owned_vehicle_id')
+    has_api_been_called = cursor_obj.execute('SELECT api_call FROM owned_vehicle WHERE owned_vehicle_id = ?', (owned_vehicle_id,)).fetchone()[0]
+    print('has_api_been_called')
+    if has_api_been_called != 1: 
+        # make api call for maintenance and recall
+        api_get_maintenance_test()
+        api_get_recall_test() 
+        cursor_obj.execute('UPDATE owned_vehicle SET api_call = 1 WHERE owned_vehicle_id =?', (owned_vehicle_id,))
+        connection_obj.commit() 
 
     # maintenance info
     maintenance = cursor_obj.execute(
         'SELECT maintenance_description, repair_difficulty, repair_total_cost, due_mileage FROM maintenance WHERE owned_vehicle_id = ?;', (owned_vehicle_id,)).fetchmany(5)
-
-    # if maintenance
+    col_names = ["service", "difficulty", "cost", "mileage"]
     maintenance_list = []
     for row in maintenance:
         maintenance_dict = {}
@@ -46,10 +54,10 @@ def view():
         maintenance_list.append(maintenance_dict)
 
     # recall info
-    recall_col_names = ["recall_number",
-                        "description", "action", "consequence", "date"]
     recall = cursor_obj.execute(
         'SELECT recall_number, description, recommended_action, consequence, recall_date FROM recall WHERE vehicle_id = ? ORDER BY recall_date DESC;', (vehicle_id,)).fetchmany(5)
+    recall_col_names = ["recall_number",
+                        "description", "action", "consequence", "date"]
     recall_list = []
     for row in recall:
         recall_dict = {}
