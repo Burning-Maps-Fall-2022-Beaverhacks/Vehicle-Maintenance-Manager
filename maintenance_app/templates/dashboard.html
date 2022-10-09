@@ -55,11 +55,11 @@
                 </thead>
                 <tbody>
                     <!-- Start Jinja Loop -->
-                    {% for vehicle in owned_vehicles %}
+                    {% for vehicle in vehicles %}
                     <tr>
-                        <td>{{ owned_vehicle.year }}</td>
-                        <td>{{ owned_vehicle.make }}</td>
-                        <td>{{ owned_vehicle.model }}</td>
+                        <td>{{ vehicle.year }}</td>
+                        <td>{{ vehicle.make }}</td>
+                        <td>{{ vehicle.model }}</td>
                         <td><a href="view-vehicle.html" type="button" class="btn btn-primary position-relative mx-auto">
                                 View
                                 <span

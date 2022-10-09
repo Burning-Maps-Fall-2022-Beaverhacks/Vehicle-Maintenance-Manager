@@ -62,10 +62,26 @@ def view():
     )
 
 
-@app.route('/dashboard')
-def dashboard():
+@app.route('/dashboard/<int:owner_id>')
+def dashboard(owner_id):
+
+    connection_obj = sqlite3.connect('database.sqlite')
+    cursor_obj = connection_obj.cursor()
+
+    dashboard_columns = ["year", "make", "model"]
+    dashboard_vehicle = cursor_obj.execute(
+        'SELECT year, make, model FROM owned_vehicle;').fetchall() 
+
+    vehicle_list = []
+    for row in dashboard_vehicle: 
+        vehicle_dict = {} 
+        for i, col in enumerate(dashboard_columns):
+            vehicle_dict[col] = row[i]
+        vehicle_list.append(vehicle_dict)
+
     return render_template(
-    'dashboard.html'
+    'dashboard.html', 
+    vehicles = vehicle_list
     )
 
 
