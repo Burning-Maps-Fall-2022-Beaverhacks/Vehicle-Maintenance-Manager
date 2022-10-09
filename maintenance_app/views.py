@@ -23,14 +23,14 @@ def index():
     )
 
 
-@app.route('/view')
-def view():
+@app.route('/view/<int:owned_vehicle_id>')
+def view(owned_vehicle_id):
 
     connection_obj = sqlite3.connect('database.sqlite')
     cursor_obj = connection_obj.cursor()
     col_names = ["service", "difficulty", "cost", "mileage"]
 
-    # maintenance info 
+    # maintenance info
     maintenance = cursor_obj.execute(
         'SELECT maintenance_description, repair_difficulty, repair_total_cost, due_mileage FROM maintenance;').fetchmany(5)
     maintenance_list = []
@@ -41,24 +41,25 @@ def view():
         maintenance_list.append(maintenance_dict)
 
     # recall info
-    recall_col_names = ["recall_number", "description", "action", "consequence", "date"]
+    recall_col_names = ["recall_number",
+                        "description", "action", "consequence", "date"]
     recall = cursor_obj.execute(
         'SELECT recall_number, description, recommended_action, consequence, recall_date FROM recall ORDER BY recall_date DESC;').fetchmany(5)
     recall_list = []
-    for row in recall: 
-        recall_dict = {} 
+    for row in recall:
+        recall_dict = {}
         for i, col in enumerate(recall_col_names):
-            if col not in ("recall_number", "date"): 
+            if col not in ("recall_number", "date"):
                 recall_dict[col] = row[i].capitalize()
-            else: 
+            else:
                 recall_dict[col] = row[i]
         recall_list.append(recall_dict)
 
     return render_template(
         'view-vehicle.html',
-        maint=maintenance_list, 
-        recalls=recall_list
-
+        maint=maintenance_list,
+        recalls=recall_list,
+        owned_vehicle_id=owned_vehicle_id
     )
 
 
@@ -66,18 +67,18 @@ def view():
 def dashboard(owner_id):
     connection_obj = sqlite3.connect('database.sqlite')
     cursor_obj = connection_obj.cursor()
-    dashboard_columns = ["year", "make", "model"]
+    dashboard_columns = ["year", "make", "model", "owned_vehicle_id"]
     dashboard_vehicle = cursor_obj.execute(
-        'SELECT year, make, model FROM owned_vehicle;').fetchall() 
+        'SELECT year, make, model, owned_vehicle_id FROM owned_vehicle;').fetchall()
     vehicle_list = []
-    for row in dashboard_vehicle: 
-        vehicle_dict = {} 
+    for row in dashboard_vehicle:
+        vehicle_dict = {}
         for i, col in enumerate(dashboard_columns):
             vehicle_dict[col] = row[i]
         vehicle_list.append(vehicle_dict)
     return render_template(
-    'dashboard.html', 
-    vehicles = vehicle_list
+        'dashboard.html',
+        vehicles=vehicle_list
     )
 
 

@@ -60,7 +60,8 @@
                         <td>{{ vehicle.year }}</td>
                         <td>{{ vehicle.make }}</td>
                         <td>{{ vehicle.model }}</td>
-                        <td><a href="view-vehicle.html" type="button" class="btn btn-primary position-relative mx-auto">
+                        <td><a href={{ "../view/" + vehicle.owned_vehicle_id|string}} type="button"
+                                class="btn btn-primary position-relative mx-auto">
                                 View
                                 <!-- <span
                                     class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
@@ -70,7 +71,7 @@
                             </a></td>
                     </tr>
                     {% endfor %}
-                     <!-- End Jinja loop-->
+                    <!-- End Jinja loop-->
                 </tbody>
             </table>
             <div class="d-grid col-6 pt-4 mx-auto">
